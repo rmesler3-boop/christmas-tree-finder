@@ -10,13 +10,12 @@ const map=L.map('map',{zoomControl:true}).setView([32.957,-105.742],12);
 map.createPane('heatPane').style.zIndex=350;map.createPane('nocutPane').style.zIndex=380;['heatPane','nocutPane'].forEach(p=>map.getPane(p).style.pointerEvents='none');
 const TO={referrerPolicy:'strict-origin-when-cross-origin',crossOrigin:'anonymous'}; // OSM requires a Referer; CORS mode keeps SW caching clean
 const base={
- 'Street map (OpenStreetMap)':L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{...TO,maxZoom:19,attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}),
- 'Street map – backup (Esri)':L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{...TO,maxZoom:19,attribution:'Tiles © Esri — Sources: Esri, HERE, Garmin, USGS, Intermap, INCREMENT P, NRCan, Esri Japan, METI, Esri China (Hong Kong), Esri Korea, Esri (Thailand), NGCC, © OpenStreetMap contributors, and the GIS User Community'}),
- 'Topo (USGS)':L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}',{...TO,maxZoom:16,attribution:'USGS The National Map'}),
- 'Satellite + topo (USGS)':L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}',{...TO,maxZoom:16,attribution:'USGS The National Map'})};
+ 'Street map (OpenStreetMap)':L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{...TO,maxZoom:19,attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · <a href="https://www.openstreetmap.org/fixthemap" target=_blank>Report a map issue</a>'}),
+ 'Topo (USGS)':L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}',{...TO,maxZoom:16,attribution:'<a href="https://www.usgs.gov/programs/national-geospatial-program/national-map" target=_blank>USGS The National Map</a> (public domain)'}),
+ 'Satellite + topo (USGS)':L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}',{...TO,maxZoom:16,attribution:'<a href="https://www.usgs.gov/programs/national-geospatial-program/national-map" target=_blank>USGS The National Map</a> (public domain)'})};
 base['Topo (USGS)'].addTo(map);
-// auto-fallback: if OpenStreetMap tiles fail (blocked/403/offline), switch to the Esri street map
-{let errs=0;base['Street map (OpenStreetMap)'].on('tileerror',()=>{if(++errs===4&&map.hasLayer(base['Street map (OpenStreetMap)'])){map.removeLayer(base['Street map (OpenStreetMap)']);base['Street map – backup (Esri)'].addTo(map);msg('OpenStreetMap tiles were blocked or unavailable – switched to the backup street map (Esri).');}});
+// auto-fallback: if OpenStreetMap tiles fail (blocked/403/offline), switch to USGS Topo (public domain). Esri removed: keyless public use isn't authorized.
+{let errs=0;base['Street map (OpenStreetMap)'].on('tileerror',()=>{if(++errs===4&&map.hasLayer(base['Street map (OpenStreetMap)'])){map.removeLayer(base['Street map (OpenStreetMap)']);base['Topo (USGS)'].addTo(map);msg('OpenStreetMap tiles were unavailable – switched to USGS Topo.');}});
  base['Street map (OpenStreetMap)'].on('add',()=>errs=0);}
 const over={};
 const lc=L.control.layers(base,over,{collapsed:innerWidth<900}).addTo(map);
@@ -177,11 +176,13 @@ $('#roads').onclick=async()=>{if(map.getZoom()<11)return msg('Zoom in closer (zo
  try{const u=`${EDW}/EDW_MVUM_02/MapServer/1/query?where=1%3D1&geometry=${b.getWest()},${b.getSouth()},${b.getEast()},${b.getNorth()}&geometryType=esriGeometryEnvelope&inSR=4326&outSR=4326&outFields=id,name,passengervehicle,highclearancevehicle,seasonal&maxAllowableOffset=0.0002&f=geojson`;
  const d=await (await fetch(u)).json();L.geoJSON(d,{style:roadStyle,onEachFeature:(f,l)=>l.bindPopup(roadPop(f.properties))}).addTo(map);msg(`Loaded ${d.features.length} MVUM roads (black = open to vehicles). Saved for offline once viewed.`);}catch(e){msg('Could not load roads (offline?)');}};
 // offline area: prefetch tiles of the active basemap for current view, zoom z..z+3
-$('#offline').onclick=async()=>{const b=map.getBounds(),z0=map.getZoom();let urls=[];const layer=Object.values(base).find(l=>map.hasLayer(l));
+$('#offline').onclick=async()=>{const b=map.getBounds(),z0=map.getZoom();let urls=[];let layer=Object.values(base).find(l=>map.hasLayer(l));
+ // OSM tile policy forbids prefetch/offline downloads from tile.openstreetmap.org, so Save area always uses USGS (public domain) tiles
+ let note='';if(!layer||/openstreetmap/.test(layer._url)){layer=base['Topo (USGS)'];note=' (USGS Topo – OpenStreetMap tiles can’t be saved for offline under the OSM tile policy)';}
  for(let z=z0;z<=Math.min(z0+3,16);z++){const p1=map.project(b.getNorthWest(),z).divideBy(256).floor(),p2=map.project(b.getSouthEast(),z).divideBy(256).floor();
   for(let x=p1.x;x<=p2.x;x++)for(let y=p1.y;y<=p2.y;y++)urls.push(layer._url.replace('{z}',z).replace('{x}',x).replace('{y}',y).replace('{s}','a'));}
  if(urls.length>2500)return msg(`That's ${urls.length} tiles – zoom in further first.`);let n=0;const c=await caches.open('tf-tiles');
- for(const u of urls){try{const r=await fetch(u);if(r.ok){await c.put(u,r);n++;}}catch(e){} if(n%25===0)msg(`Saving tiles ${n}/${urls.length}…`);}
+ for(const u of urls){try{const r=await fetch(u);if(r.ok){await c.put(u,r);n++;}}catch(e){} if(n%25===0)msg(`Saving tiles ${n}/${urls.length}${note}…`);}
  msg(`Saved ${n} map tiles for offline use.`);};
 // ===== waypoints (replaces old "saved spots"; old ones are migrated) =====
 Object.assign(L.Popup.prototype.options,{maxHeight:Math.max(180,Math.round(innerHeight*.36)),autoPanPaddingTopLeft:L.point(8,innerWidth<800?175:70),autoPanPaddingBottomRight:L.point(8,innerWidth<800?20:8)});
@@ -293,7 +294,7 @@ function startSnow(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)r
  const step=t=>{x.clearRect(0,0,sc.width,sc.height);x.fillStyle='rgba(255,255,255,.85)';for(const f of fl){f.y+=f.v;f.x+=Math.sin(t/1500+f.d)*.3;if(f.y>sc.height){f.y=-4;f.x=Math.random()*sc.width;}x.beginPath();x.arc(f.x,f.y,f.r,0,7);x.fill();}snowRaf=requestAnimationFrame(step);};snowRaf=requestAnimationFrame(step);}
 function stopSnow(){cancelAnimationFrame(snowRaf);sc.hidden=true;}
 if(localStorage.getItem('tf-snow')||location.hash.includes('snow')){snowOn=true;$('#snowbtn').classList.add('on');startSnow();}
-{const m=location.hash.match(/base=([a-z]+)/);if(m){const want={osm:'Street map (OpenStreetMap)',esri:'Street map – backup (Esri)',topo:'Topo (USGS)',img:'Satellite + topo (USGS)'}[m[1]];if(want&&base[want]){Object.values(base).forEach(l=>map.removeLayer(l));base[want].addTo(map);}}}
+{const m=location.hash.match(/base=([a-z]+)/);if(m){const want={osm:'Street map (OpenStreetMap)',esri:'Topo (USGS)',topo:'Topo (USGS)',img:'Satellite + topo (USGS)'}[m[1]];if(want&&base[want]){Object.values(base).forEach(l=>map.removeLayer(l));base[want].addTo(map);}}}
 {const m=location.hash.match(/sp=([a-z]*)/);if(m)setTimeout(()=>pickSp(m[1]==='off'?'':m[1]),0);}
 
 {const s=$('#nocutop');if(s){s.value=Math.round((noCutLayer?noCutLayer.options.opacity:+(localStorage.getItem('tf-nocut-op')||.25))*100);

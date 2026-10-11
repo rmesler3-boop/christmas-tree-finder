@@ -21,8 +21,14 @@ CUR_YEAR = 2026
 
 def get(url, params, binary=False):
     u = url + "?" + urllib.parse.urlencode(params)
-    with urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "treefinder-pipeline"}), timeout=180) as r:
-        b = r.read()
+    for attempt in range(5):  # USFS/LANDFIRE servers drop connections now and then
+        try:
+            with urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "treefinder-pipeline"}), timeout=180) as r:
+                b = r.read()
+            break
+        except Exception as e:
+            if attempt == 4: raise
+            import time; time.sleep(5 * (attempt + 1))
     return b if binary else json.loads(b)
 
 def lf_raster(svc, bbox, w, h):
@@ -79,6 +85,7 @@ SPECIES = {
 }
 # Northern NM (Santa Fe, Carson, Cibola Mt Taylor/Sandia; mean lat >= 34.8) bands — ESTIMATES (ft), slightly higher/wider than the south
 ELEV_NORTH = {"fir": (8000, 10200), "spruce": (9500, 12000), "ponderosa": (7000, 9000), "pinyon": (5800, 7600)}
+LIDAR_W, META_W = 0.35, 0.12   # weight of 'Christmas-size tree density' where lidar (2) or Meta 1 m CHM (1) covers a cell
 WEIGHTS = {"height": 0.20, "cover": 0.12, "disturb": 0.13, "elev": 0.15, "aspect": 0.10, "slope": 0.10, "twi": 0.05, "road": 0.15}
 
 def band(x, lo, hi, soft=600.0):
@@ -140,6 +147,22 @@ def main():
 
     # ---- factor scores 0..1 ----
     ht = np.where((evh >= 101) & (evh < 200), evh-100, np.nan)        # dominant canopy height (m)
+    f_small, src_small = None, None
+    LD = os.environ.get("SMALLTREE_DIR")   # outputs of pipeline/lidar/*.py, already on this area's heat grid
+    if LD and aid == "sacramento" and os.path.exists(os.path.join(LD, "lidar_density_ha.npy")):
+        ld, lc = np.load(os.path.join(LD, "lidar_density_ha.npy")), np.load(os.path.join(LD, "lidar_cover.npy"))
+        src_small = np.where(lc, 2, 0).astype(np.uint8); f_small = 1 - np.exp(-ld/12.0)   # ~12 weighted small trees/ha -> 0.63
+        if os.path.exists(os.path.join(LD, "meta_density_ha.npy")):
+            md, mc = np.load(os.path.join(LD, "meta_density_ha.npy")), np.load(os.path.join(LD, "meta_cover.npy"))
+            f_meta = 1 - np.exp(-md/40.0)   # Meta over-detects 1-3 m pixels (~4x lidar in the test area), so a softer scale
+            src_small = np.where((src_small == 0) & mc, 1, src_small); f_small = np.where(src_small == 1, f_meta, f_small)
+        # put lidar and Meta on the same footing: percentile rank (mid-rank for ties) of density within each source
+        for code, dens in ((2, ld), (1, md if os.path.exists(os.path.join(LD, "meta_density_ha.npy")) else None)):
+            sel = src_small == code
+            if dens is None or not sel.any(): continue
+            v = dens[sel]; srt = np.sort(v); lo = np.searchsorted(srt, v, "left"); hi = np.searchsorted(srt, v, "right")
+            f_small[sel] = (lo + hi) / 2 / len(v)
+        print("small-tree factor: lidar cells", int((src_small == 2).sum()), "meta cells", int((src_small == 1).sum()))
     f_height = np.where(np.isnan(ht), 0.35, np.interp(np.nan_to_num(ht), [0, 5, 10, 15, 25], [1.0, 1.0, 0.7, 0.4, 0.15]))
     cc = np.where((evc >= 110) & (evc < 200), evc-100, np.nan)        # tree canopy cover %
     f_cover = np.where(np.isnan(cc), 0.4, np.interp(np.nan_to_num(cc), [0, 15, 25, 60, 80, 100], [0.4, 0.7, 1.0, 1.0, 0.6, 0.3]))
@@ -201,6 +224,10 @@ def main():
         f_asp = np.where(asp < 0, 0.75, 0.75 + 0.25*np.cos(np.radians(asp - 22.5))) if cfg["north"] else np.where(asp < 0, 0.8, 0.8 + 0.2*np.cos(np.radians(asp - 202.5)))
         F = dict(height=f_height, cover=f_cover, disturb=f_dist, elev=f_elev, aspect=f_asp, slope=f_slope, twi=f_twi, road=f_road)
         comb = sum(WEIGHTS[k]*F[k] for k in WEIGHTS)
+        if f_small is not None:  # lidar / Meta small-tree density replaces most of the coarse LANDFIRE EVH height factor
+            rest = (comb - WEIGHTS["height"]*f_height) / (1 - WEIGHTS["height"])
+            comb = np.where(src_small == 2, LIDAR_W*f_small + 0.05*f_height + (0.95-LIDAR_W)*rest,
+                   np.where(src_small == 1, META_W*f_small + 0.15*f_height + (0.85-META_W)*rest, comb))
         score = np.where(~developed_nr & ~wild, f_hab * comb * np.minimum(1, f_elev*1.5+0.2), 0)  # land status & setbacks are clipped as vectors in the app
         pos = score[(score > 0) & legal]
         p99 = float(np.percentile(pos, 99)) if pos.size else 1.0
@@ -210,6 +237,11 @@ def main():
         savegrid("hab_" + sp, np.clip(f_hab*255, 0, 255))
         meta["species"][sp] = {"label": cfg["label"], "elev_ft": cfg["elev_ft"], "share_high": float((q > 0.6).mean())}
         print(sp, "cells>0.6:", int((q > 0.6).sum()))
+    if f_small is not None:
+        Image.fromarray(np.ascontiguousarray((np.clip(f_small, 0, 1)*255).astype(np.uint8)[::2, ::2]), "L").save(os.path.join(out, "g_f_small.png"), optimize=True)
+        Image.fromarray(np.ascontiguousarray((src_small*100).astype(np.uint8)[::2, ::2]), "L").save(os.path.join(out, "g_src_small.png"), optimize=True)
+        meta["small_tree"] = {"lidar_weight": LIDAR_W, "meta_weight": META_W, "lidar": "USGS 3DEP NM_SouthEast_2018_D19 (QL2, flown Nov 2018-May 2019), test area ~5x5 km around Cloudcroft",
+                              "meta": "Meta/WRI 1 m canopy height v1 (imagery 2018), tile 023103221", "growth_ft_per_yr": [0.5, 1.0], "seasons": 8}
     for k, arr in dict(height=f_height, cover=f_cover, disturb=f_dist, slope=f_slope, twi=f_twi, road=f_road).items():
         savegrid("f_" + k, np.clip(arr*255, 0, 255))
     savegrid("elev50ft", np.clip(np.nan_to_num(elev_ft)/50, 0, 255))

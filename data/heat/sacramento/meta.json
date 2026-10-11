@@ -36,7 +36,7 @@
     7800,
     9800
    ],
-   "share_high": 0.052038486627527726
+   "share_high": 0.05209154813019053
   },
   "spruce": {
    "label": "Spruce / subalpine & corkbark fir",
@@ -52,7 +52,7 @@
     6800,
     8800
    ],
-   "share_high": 0.1922951290514161
+   "share_high": 0.19223014088072357
   },
   "pinyon": {
    "label": "Pinyon pine (and juniper)",
@@ -60,8 +60,19 @@
     5500,
     7600
    ],
-   "share_high": 0.29543914478488187
+   "share_high": 0.29512540039528384
   }
+ },
+ "small_tree": {
+  "lidar_weight": 0.35,
+  "meta_weight": 0.12,
+  "lidar": "USGS 3DEP NM_SouthEast_2018_D19 (QL2, flown Nov 2018-May 2019), test area ~5x5 km around Cloudcroft",
+  "meta": "Meta/WRI 1 m canopy height v1 (imagery 2018), tile 023103221",
+  "growth_ft_per_yr": [
+   0.5,
+   1.0
+  ],
+  "seasons": 8
  },
  "gw": 1005,
  "gh": 1022,

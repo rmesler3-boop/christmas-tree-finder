@@ -146,7 +146,7 @@ map.on('click',async e=>{const sp=$('#species').value;let html=navTop(e.latlng.l
   <tr><td>Habitat match (LANDFIRE EVT)</td><td>${p(g['hab_'+sp])}</td></tr><tr><td>Small-tree canopy height (EVH)</td><td>${p(g.f_height)}</td></tr>
   <tr><td>Open/moderate cover (EVC)</td><td>${p(g.f_cover)}</td></tr><tr><td>Regrowth 9–26 yr after fire/thinning</td><td>${g.f_disturb>200?'yes':'no'}</td></tr>
   <tr><td>Gentle slope</td><td>${p(g.f_slope)}</td></tr><tr><td>Moisture (TWI)</td><td>${p(g.f_twi)}</td></tr><tr><td>Road access</td><td>${p(g.f_road)}</td></tr>
-  <tr><td>Elevation (LANDFIRE)</td><td>~${g.elev50ft*50} ft</td></tr></table>`;}
+  <tr><td>Elevation (LANDFIRE)</td><td>~${g.elev50ft*50} ft</td></tr>${A.meta.small_tree?await (async()=>{const fs=(await loadGrid(A,'f_small'))[i],src=(await loadGrid(A,'src_small'))[i];return src?`<tr><td>Christmas-size trees nearby (${src>=200?'lidar 2018-19':'Meta 1 m CHM'}) <span class=est>est.</span></td><td>${p(fs)}</td></tr>`:'';})():''}</table>`;}
  {const r=reasonAt(e.latlng.lat,e.latlng.lng);if(r!==null){html+=r?`<div style="background:#ddd;padding:4px;margin-top:4px"><b>⛔ No cutting:</b> ${r}</div>`:`<div class=small>✔ Not in a mapped no-cut area (still check your permit map)</div>`;}}
  {const tf=tuneAt(e.latlng.lat,e.latlng.lng);if(tf!==1)html+=`<div class=small>Your field notes nearby: local tuning ${tf>1?'boost':'penalty'} ×${tf.toFixed(2)} <span class=est>local tuning</span></div>`;}
  html+=`<br><button onclick="newWp(${e.latlng.lat},${e.latlng.lng})">+ Waypoint here</button> <button onclick="saveSpot(${e.latlng.lat},${e.latlng.lng},true)">🌲 Found good tree here</button>`;

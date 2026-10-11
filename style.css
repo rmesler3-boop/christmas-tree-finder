@@ -10,8 +10,10 @@ nav{display:flex;background:#14462a}nav button{flex:1;color:#fff;background:none
 .legend{background:linear-gradient(90deg,#bfd3e6,#8c96c6,#88419d,#4d004b);height:10px;border-radius:4px}
 #spbar{position:absolute;z-index:600;top:8px;left:56px;right:56px;display:flex;flex-wrap:wrap;gap:4px;align-items:center;background:#fffe;border-radius:10px;padding:6px;box-shadow:0 2px 8px #0004}
 #spbar .lbl{font-weight:bold;font-size:14px;margin-right:2px}#spbar button{padding:6px 9px;font-size:13px}#spbar button.on{background:#14462a;color:#fff;font-weight:bold}
-#cover{position:absolute;z-index:600;left:50%;transform:translateX(-50%);top:110px;background:#fff3c4;border:1px solid #c90;border-radius:8px;padding:8px 10px;font-size:13px;max-width:90%;text-align:center}
-@media(min-width:800px){#spbar{top:10px;left:60px;right:auto}#cover{top:64px}#panel{left:auto;width:420px}}
+#cover{background:#fff3c4;border:1px solid #c90;border-radius:8px;padding:3px 6px;font-size:12.5px;margin-bottom:6px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;line-height:1.3}
+#cover[hidden]{display:none}#cover .t{flex:1;min-width:0}#cover button{padding:3px 8px;font-size:12.5px;margin:0}#cover.mini .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#cover.mini .x{display:none}
+#cover .pb{flex-basis:100%;height:6px;background:#e5d9a8;border-radius:3px;overflow:hidden}#cover .pb i{display:block;height:100%;background:var(--pine,#0f3d2e)}#cover .ok{color:#0a6b2e;font-weight:bold}#cover .err{color:#b3122e;font-weight:bold}
+@media(min-width:800px){#spbar{top:10px;left:60px;right:auto}#panel{left:auto;width:420px}}
 .pix{image-rendering:pixelated}
 
 /* ===== Christmas theme: deep pine green, cranberry, gold, snow white; high contrast for outdoors ===== */

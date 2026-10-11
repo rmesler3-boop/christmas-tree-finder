@@ -9,8 +9,8 @@
 <section id="tab-map" class="tab on"><div id="map"></div>
  <div id="spbar"><span class="lbl">Tree type:</span>
   <button data-sp="fir" class="on">White fir / Douglas-fir</button><button data-sp="ponderosa">Ponderosa</button><button data-sp="pinyon">Pinyon</button><button data-sp="spruce">Spruce / subalpine fir</button><button data-sp="">Heat map off</button></div>
- <div id="cover" hidden></div>
  <div id="panel">
+  <div id="cover" hidden></div>
   <select id="species" hidden><option value="fir">fir</option><option value="ponderosa">ponderosa</option><option value="pinyon">pinyon</option><option value="spruce">spruce</option><option value="">off</option></select>
   <div class="row"><button id="gps">📍 Me</button><button id="top">⭐ Best nearby</button><button id="roads">🛣 Roads here</button><button id="offline">⬇ Save area</button></div>
   <div class="small opac"><label for="nocutop"><span class="sw"></span> No-cut shading</label> <input id="nocutop" type="range" min="0" max="60" step="5" value="25"> <span id="nocutv">25%</span></div>
@@ -18,7 +18,8 @@
  </div></section>
 <section id="tab-rules" class="tab"><div id="rules"></div></section>
 <section id="tab-saved" class="tab"><h2>Saved spots</h2><p class="small">Stored on this phone only (works offline). Mark spots where you found good trees — exported reports can be used to tune the heat map.</p><div id="saved"></div>
- <button id="export">Export spots (JSON)</button></section>
+ <button id="export">Export spots (JSON)</button>
+ <h2>Saved districts (offline heat maps)</h2><div id="savedd"></div></section>
 <section id="tab-about" class="tab"><div id="about"></div></section>
 </main>
 <canvas id="snow" hidden aria-hidden="true"></canvas><nav><button data-t="map" class="on">Map</button><button data-t="rules">Rules</button><button data-t="saved">Saved</button><button data-t="about">How / Sources</button></nav>

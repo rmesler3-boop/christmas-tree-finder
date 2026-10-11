@@ -99,15 +99,41 @@ function pickSp(sp){$('#species').value=sp;document.querySelectorAll('#spbar but
 document.querySelectorAll('#spbar button').forEach(b=>b.onclick=()=>pickSp(b.dataset.sp));
 const areaAt=(lat,lng)=>Object.values(AREAS).filter(A=>A.ready).find(A=>{const [W,S,E,N]=A.meta.bbox;if(lng<W||lng>E||lat<S||lat>N)return false;const d=A.land.raw,x=Math.floor((lng-W)/(E-W)*d.width),y=Math.floor((N-lat)/(N-S)*d.height);return d.data[(y*d.width+x)*4+3]>0;})
  ||Object.values(AREAS).filter(A=>A.ready).find(A=>aBounds(A.e).contains([lat,lng]));
-function checkCover(){const sp=$('#species').value,el=$('#cover');if(!INDEX.length)return;const c=map.getCenter();
- if(!sp){el.hidden=true;return;}const inBox=INDEX.filter(e=>aBounds(e).contains(c));
- if(map.getZoom()<MINZ){el.hidden=false;el.innerHTML=`Heat maps cover ${INDEX.length} national-forest ranger districts in New Mexico (purple dashed boxes). <b>Zoom in</b> on a district to load its heat map.`;}
- else if(!INDEX.some(e=>aBounds(e).intersects(map.getBounds()))){el.hidden=false;el.innerHTML='No heat map here — outside New Mexico national-forest ranger districts. BLM piñon/juniper permit areas are not mapped (see Rules).';}
- else{const A=areaAt(c.lat,c.lng);const nm=A?A.e.name+' ('+A.e.forestname+')':(inBox[0]?inBox[0].name:'');
-  el.hidden=!nm;el.innerHTML=nm?`📍 ${nm} <button onclick="dlArea()">⬇ Download this district for offline</button>`:'';}}
-window.dlArea=async()=>{const c=map.getCenter(),A=areaAt(c.lat,c.lng);if(!A)return;const fl=A.e.files.map(f=>A.D+f);let n=0,bytes=0;const cache=await caches.open('tf-v-districts');
- for(const u of fl){try{const r=await fetch(u,{cache:'reload'});if(r.ok){bytes+=+(r.headers.get('content-length')||0);await cache.put(u,r);n++;}}catch(e){}}
- msg(`Saved ${A.e.name} for offline: ${n}/${fl.length} files (${(A.e.bytes/1e6).toFixed(1)} MB). Also use “Save area” to keep base-map tiles.`);};
+// ----- district bar (inside the bottom panel, never over the map) + offline district downloads
+const DC='tf-v-districts',savedD=()=>JSON.parse(localStorage.getItem('tf-saved-districts')||'{}'),setSavedD=o=>localStorage.setItem('tf-saved-districts',JSON.stringify(o));
+const DL={};let coverKey='',coverTimer=null;const mb=b=>(b/1e6).toFixed(1)+' MB';
+function coverSet(key,html,collapse=true){const el=$('#cover');el.hidden=!html;if(key===coverKey&&!DL.busy)return;coverKey=key;el.innerHTML=html;el.classList.remove('mini');clearTimeout(coverTimer);
+ if(collapse)coverTimer=setTimeout(()=>el.classList.add('mini'),5000);}
+$('#cover').onclick=e=>{if(e.target.tagName!=='BUTTON')$('#cover').classList.toggle('mini');};
+function distHtml(e){const s=savedD()[e.id],d=DL[e.id],nm=e.name.replace(' Ranger District',' RD');
+ if(d&&d.state==='busy')return `<span class="t">⬇ ${nm}: ${d.n} of ${d.N} files, ${mb(d.b)} / ${mb(e.bytes)}</span><span class="pb"><i style="width:${Math.round(100*d.n/d.N)}%"></i></span>`;
+ if(d&&d.state==='err')return `<span class="t err">⚠ ${nm}: download failed (${d.msg}).</span><button onclick="dlArea('${e.id}')">Retry</button>`;
+ if(s)return `<span class="t">📍 ${nm} <span class="ok">· Saved for offline ✓</span></span>`;
+ return `<span class="t">📍 ${nm}<span class="x"> (${e.forestname.replace(' National Forest',' NF')})</span></span><button onclick="dlArea('${e.id}')">⬇ Offline (${mb(e.bytes)})</button>`;}
+function checkCover(){const sp=$('#species').value;if(!INDEX.length)return;const c=map.getCenter();
+ if(map.getZoom()<MINZ)return coverSet('zoom',`<span class="t">Heat maps: ${INDEX.length} NM ranger districts (purple boxes). <b>Zoom in</b> to load one.</span>`);
+ if(!INDEX.some(e=>aBounds(e).intersects(map.getBounds())))return coverSet('none','<span class="t">No heat map here (outside NM national-forest districts).</span>');
+ const A=areaAt(c.lat,c.lng),e=A?A.e:INDEX.find(e=>aBounds(e).contains(c));if(!e)return coverSet('','');
+ coverSet('d:'+e.id+':'+(savedD()[e.id]?1:0),distHtml(e),!DL[e.id]);}
+function redrawCover(id){const e=INDEX.find(x=>x.id===id);coverKey='';const el=$('#cover');el.hidden=false;el.classList.remove('mini');el.innerHTML=distHtml(e);renderSavedD();}
+window.dlArea=async id=>{const e=INDEX.find(x=>x.id===id);if(!e||(DL[id]&&DL[id].state==='busy'))return;DL.busy=1;
+ const D=new URL(`data/heat/${id}/`,location.href).href,files=['index.json',...e.files.map(f=>id+'/'+f)].map(f=>new URL('data/heat/'+f,location.href).href);
+ const d=DL[id]={state:'busy',n:0,N:files.length,b:0};redrawCover(id);
+ try{if(!('caches' in window))throw new Error('this browser has no offline storage (needs HTTPS)');const cache=await caches.open(DC);
+  for(const u of files){let r;try{r=await fetch(u,{cache:'no-cache'});}catch(x){throw new Error('network error – check signal');}
+   if(!r.ok)throw new Error(`HTTP ${r.status} for ${u.split('/').slice(-2).join('/')}`);const blob=await r.blob();
+   await cache.put(u,new Response(blob,{headers:{'Content-Type':r.headers.get('Content-Type')||''}}));d.n++;d.b+=blob.size;redrawCover(id);}
+  const o=savedD();o[id]={bytes:d.b,date:new Date().toISOString().slice(0,10),name:e.name};setSavedD(o);delete DL[id];
+  if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();msg(`Saved ${e.name} for offline ✓ (${mb(d.b)}). Use “Save area” too, to keep base-map tiles.`);}
+ catch(err){d.state='err';d.msg=err.message||String(err);msg('Offline download failed: '+d.msg);}
+ DL.busy=0;redrawCover(id);};
+window.delArea=async id=>{const cache=await caches.open(DC);for(const k of await cache.keys())if(k.url.includes(`/data/heat/${id}/`))await cache.delete(k);const o=savedD();delete o[id];setSavedD(o);renderSavedD();coverKey='';checkCover();};
+function renderSavedD(){const el=$('#savedd');if(!el)return;const o=savedD(),ks=Object.keys(o);
+ el.innerHTML=ks.length?ks.map(k=>`<div class="card">🗺 <b>${o[k].name}</b> · ${mb(o[k].bytes)} · saved ${o[k].date} <button onclick="document.querySelector('nav button[data-t=map]').click();map.setView(aBounds(INDEX.find(e=>e.id==='${k}')).getCenter(),11)">Show</button> <button onclick="delArea('${k}')">🗑 Delete</button></div>`).join('')+`<p class="small">Total ${mb(ks.reduce((s,k)=>s+o[k].bytes,0))}.</p>`
+  :'<p class="small">None yet. Zoom into a district on the map and tap “⬇ Offline”.</p>';}
+renderSavedD();
+// reconcile saved list with what is really in the cache (e.g. browser cleared storage)
+caches&&caches.open(DC).then(c=>c.keys()).then(ks=>{const o=savedD();let ch=0;for(const id in o)if(!ks.some(k=>k.url.includes(`/data/heat/${id}/meta.json`))){delete o[id];ch=1;}if(ch){setSavedD(o);renderSavedD();}}).catch(()=>{});
 map.on('click',async e=>{const sp=$('#species').value;let html=`${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}`;const A=areaAt(e.latlng.lat,e.latlng.lng);
  if(A)html+=`<br><span class=small>${A.e.name}, ${A.e.forestname}</span>`;
  if(sp&&A){const m=A.meta,[W,S,E,N]=m.bbox,gw=Math.ceil(m.w/2),gh=Math.ceil(m.h/2),i=Math.min(gh-1,Math.floor((N-e.latlng.lat)/(N-S)*gh))*gw+Math.min(gw-1,Math.floor((e.latlng.lng-W)/(E-W)*gw));

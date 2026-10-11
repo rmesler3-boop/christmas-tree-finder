@@ -1,0 +1,90 @@
+{
+ "area": "guadalupe",
+ "bbox": [
+  -105.159,
+  31.988,
+  -104.604,
+  32.616
+ ],
+ "w": 1741,
+ "h": 2331,
+ "cell_m": 29.995015112382532,
+ "weights": {
+  "height": 0.2,
+  "cover": 0.12,
+  "disturb": 0.13,
+  "elev": 0.15,
+  "aspect": 0.1,
+  "slope": 0.1,
+  "twi": 0.05,
+  "road": 0.15
+ },
+ "generated": "LANDFIRE LF2024 EVT/EVH/EVC; LANDFIRE LF2020 Elev/Slope/Aspect; USFS EDW boundaries, wilderness, MVUM, MTBS, FACTS harvest, hazardous fuels",
+ "counts": {
+  "rec": 12,
+  "trails": 25,
+  "streams": 110,
+  "roads": 180,
+  "burns": 20,
+  "harvest": 0,
+  "fuels": 20
+ },
+ "species": {
+  "fir": {
+   "label": "White fir / Douglas-fir (mixed conifer)",
+   "elev_ft": [
+    7800,
+    9800
+   ],
+   "share_high": 0.0019584695058560654
+  },
+  "spruce": {
+   "label": "Spruce / subalpine & corkbark fir",
+   "elev_ft": [
+    9500,
+    11800
+   ],
+   "share_high": 0.0
+  },
+  "ponderosa": {
+   "label": "Ponderosa pine",
+   "elev_ft": [
+    6800,
+    8800
+   ],
+   "share_high": 0.003061402257266703
+  },
+  "pinyon": {
+   "label": "Pinyon pine (and juniper)",
+   "elev_ft": [
+    5500,
+    7600
+   ],
+   "share_high": 0.08525256199006917
+  }
+ },
+ "gw": 871,
+ "gh": 1166,
+ "region": "south",
+ "district": "030803",
+ "forest": "lincoln",
+ "name": "Guadalupe Ranger District",
+ "elev_bands": {
+  "fir": [
+   7800,
+   9800
+  ],
+  "spruce": [
+   9500,
+   11800
+  ],
+  "ponderosa": [
+   6800,
+   8800
+  ],
+  "pinyon": [
+   5500,
+   7600
+  ]
+ }
+}

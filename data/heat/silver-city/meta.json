@@ -1,0 +1,90 @@
+{
+ "area": "silver-city",
+ "bbox": [
+  -108.657,
+  32.39,
+  -107.706,
+  33.099
+ ],
+ "w": 2968,
+ "h": 2631,
+ "cell_m": 30.00079561889459,
+ "weights": {
+  "height": 0.2,
+  "cover": 0.12,
+  "disturb": 0.13,
+  "elev": 0.15,
+  "aspect": 0.1,
+  "slope": 0.1,
+  "twi": 0.05,
+  "road": 0.15
+ },
+ "generated": "LANDFIRE LF2024 EVT/EVH/EVC; LANDFIRE LF2020 Elev/Slope/Aspect; USFS EDW boundaries, wilderness, MVUM, MTBS, FACTS harvest, hazardous fuels",
+ "counts": {
+  "rec": 82,
+  "trails": 629,
+  "streams": 645,
+  "roads": 444,
+  "burns": 17,
+  "harvest": 17,
+  "fuels": 93
+ },
+ "species": {
+  "fir": {
+   "label": "White fir / Douglas-fir (mixed conifer)",
+   "elev_ft": [
+    7800,
+    9800
+   ],
+   "share_high": 0.007910042096053584
+  },
+  "spruce": {
+   "label": "Spruce / subalpine & corkbark fir",
+   "elev_ft": [
+    9500,
+    11800
+   ],
+   "share_high": 4.354057623135311e-06
+  },
+  "ponderosa": {
+   "label": "Ponderosa pine",
+   "elev_ft": [
+    6800,
+    8800
+   ],
+   "share_high": 0.038281899106752275
+  },
+  "pinyon": {
+   "label": "Pinyon pine (and juniper)",
+   "elev_ft": [
+    5500,
+    7600
+   ],
+   "share_high": 0.20669889693791935
+  }
+ },
+ "gw": 1484,
+ "gh": 1316,
+ "region": "south",
+ "district": "030607",
+ "forest": "gila",
+ "name": "Silver City Ranger District",
+ "elev_bands": {
+  "fir": [
+   7800,
+   9800
+  ],
+  "spruce": [
+   9500,
+   11800
+  ],
+  "ponderosa": [
+   6800,
+   8800
+  ],
+  "pinyon": [
+   5500,
+   7600
+  ]
+ }
+}

@@ -1,0 +1,90 @@
+{
+ "area": "reserve",
+ "bbox": [
+  -108.976,
+  33.363,
+  -108.22,
+  33.937
+ ],
+ "w": 2335,
+ "h": 2130,
+ "cell_m": 30.002676862267876,
+ "weights": {
+  "height": 0.2,
+  "cover": 0.12,
+  "disturb": 0.13,
+  "elev": 0.15,
+  "aspect": 0.1,
+  "slope": 0.1,
+  "twi": 0.05,
+  "road": 0.15
+ },
+ "generated": "LANDFIRE LF2024 EVT/EVH/EVC; LANDFIRE LF2020 Elev/Slope/Aspect; USFS EDW boundaries, wilderness, MVUM, MTBS, FACTS harvest, hazardous fuels",
+ "counts": {
+  "rec": 71,
+  "trails": 329,
+  "streams": 741,
+  "roads": 1041,
+  "burns": 37,
+  "harvest": 338,
+  "fuels": 139
+ },
+ "species": {
+  "fir": {
+   "label": "White fir / Douglas-fir (mixed conifer)",
+   "elev_ft": [
+    7800,
+    9800
+   ],
+   "share_high": 0.033840214735953195
+  },
+  "spruce": {
+   "label": "Spruce / subalpine & corkbark fir",
+   "elev_ft": [
+    9500,
+    11800
+   ],
+   "share_high": 0.002612821827467302
+  },
+  "ponderosa": {
+   "label": "Ponderosa pine",
+   "elev_ft": [
+    6800,
+    8800
+   ],
+   "share_high": 0.3623212795689196
+  },
+  "pinyon": {
+   "label": "Pinyon pine (and juniper)",
+   "elev_ft": [
+    5500,
+    7600
+   ],
+   "share_high": 0.2523237928642519
+  }
+ },
+ "gw": 1168,
+ "gh": 1065,
+ "region": "south",
+ "district": "030606",
+ "forest": "gila",
+ "name": "Reserve Ranger District",
+ "elev_bands": {
+  "fir": [
+   7800,
+   9800
+  ],
+  "spruce": [
+   9500,
+   11800
+  ],
+  "ponderosa": [
+   6800,
+   8800
+  ],
+  "pinyon": [
+   5500,
+   7600
+  ]
+ }
+}

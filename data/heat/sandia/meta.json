@@ -1,0 +1,90 @@
+{
+ "area": "sandia",
+ "bbox": [
+  -106.526,
+  34.937,
+  -106.269,
+  35.315
+ ],
+ "w": 780,
+ "h": 1403,
+ "cell_m": 29.998941318725684,
+ "weights": {
+  "height": 0.2,
+  "cover": 0.12,
+  "disturb": 0.13,
+  "elev": 0.15,
+  "aspect": 0.1,
+  "slope": 0.1,
+  "twi": 0.05,
+  "road": 0.15
+ },
+ "generated": "LANDFIRE LF2024 EVT/EVH/EVC; LANDFIRE LF2020 Elev/Slope/Aspect; USFS EDW boundaries, wilderness, MVUM, MTBS, FACTS harvest, hazardous fuels",
+ "counts": {
+  "rec": 95,
+  "trails": 189,
+  "streams": 27,
+  "roads": 50,
+  "burns": 0,
+  "harvest": 10,
+  "fuels": 29
+ },
+ "species": {
+  "fir": {
+   "label": "White fir / Douglas-fir (mixed conifer)",
+   "elev_ft": [
+    7800,
+    9800
+   ],
+   "share_high": 0.0031900506241204743
+  },
+  "spruce": {
+   "label": "Spruce / subalpine & corkbark fir",
+   "elev_ft": [
+    9500,
+    11800
+   ],
+   "share_high": 0.0010362410219858546
+  },
+  "ponderosa": {
+   "label": "Ponderosa pine",
+   "elev_ft": [
+    6800,
+    8800
+   ],
+   "share_high": 0.20918635890125556
+  },
+  "pinyon": {
+   "label": "Pinyon pine (and juniper)",
+   "elev_ft": [
+    5500,
+    7600
+   ],
+   "share_high": 0.204488550176362
+  }
+ },
+ "gw": 390,
+ "gh": 702,
+ "region": "north",
+ "district": "030305",
+ "forest": "cibola",
+ "name": "Sandia Ranger District",
+ "elev_bands": {
+  "fir": [
+   8000,
+   10200
+  ],
+  "spruce": [
+   9500,
+   12000
+  ],
+  "ponderosa": [
+   7000,
+   9000
+  ],
+  "pinyon": [
+   5800,
+   7600
+  ]
+ }
+}

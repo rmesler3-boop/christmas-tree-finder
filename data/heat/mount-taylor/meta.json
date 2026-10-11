@@ -1,0 +1,90 @@
+{
+ "area": "mount-taylor",
+ "bbox": [
+  -108.646,
+  34.948,
+  -107.208,
+  35.536
+ ],
+ "w": 4358,
+ "h": 2182,
+ "cell_m": 29.999856838294246,
+ "weights": {
+  "height": 0.2,
+  "cover": 0.12,
+  "disturb": 0.13,
+  "elev": 0.15,
+  "aspect": 0.1,
+  "slope": 0.1,
+  "twi": 0.05,
+  "road": 0.15
+ },
+ "generated": "LANDFIRE LF2024 EVT/EVH/EVC; LANDFIRE LF2020 Elev/Slope/Aspect; USFS EDW boundaries, wilderness, MVUM, MTBS, FACTS harvest, hazardous fuels",
+ "counts": {
+  "rec": 30,
+  "trails": 86,
+  "streams": 324,
+  "roads": 261,
+  "burns": 4,
+  "harvest": 16,
+  "fuels": 78
+ },
+ "species": {
+  "fir": {
+   "label": "White fir / Douglas-fir (mixed conifer)",
+   "elev_ft": [
+    7800,
+    9800
+   ],
+   "share_high": 0.006742764552395607
+  },
+  "spruce": {
+   "label": "Spruce / subalpine & corkbark fir",
+   "elev_ft": [
+    9500,
+    11800
+   ],
+   "share_high": 0.002212288871904089
+  },
+  "ponderosa": {
+   "label": "Ponderosa pine",
+   "elev_ft": [
+    6800,
+    8800
+   ],
+   "share_high": 0.21898599623352483
+  },
+  "pinyon": {
+   "label": "Pinyon pine (and juniper)",
+   "elev_ft": [
+    5500,
+    7600
+   ],
+   "share_high": 0.18500874315238913
+  }
+ },
+ "gw": 2179,
+ "gh": 1091,
+ "region": "north",
+ "district": "030302",
+ "forest": "cibola",
+ "name": "Mount Taylor Ranger District",
+ "elev_bands": {
+  "fir": [
+   8000,
+   10200
+  ],
+  "spruce": [
+   9500,
+   12000
+  ],
+  "ponderosa": [
+   7000,
+   9000
+  ],
+  "pinyon": [
+   5800,
+   7600
+  ]
+ }
+}

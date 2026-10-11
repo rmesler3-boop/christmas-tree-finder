@@ -1,0 +1,25 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f3d2e"><title>NM Christmas Tree Finder</title>
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="vendor/leaflet.css"><link rel="stylesheet" href="style.css"></head><body>
+<header><h1><svg class="hicon" viewBox="0 0 30 38" aria-hidden="true"><polygon points="15,2 3,16 9,16 1,28 29,28 21,16 27,16" fill="#2e8b57" stroke="#e8be3c" stroke-width="1.5"/><rect x="12" y="28" width="6" height="7" fill="#8d5a32"/><circle cx="15" cy="3" r="2.6" fill="#e8be3c"/></svg><span class="long">NM&nbsp;</span>Christmas Tree Finder</h1><button id="snowbtn" title="Gentle snowfall" aria-label="Toggle snowfall">❄</button>
+<select id="forest"></select></header>
+<div class="pines" aria-hidden="true"></div><main>
+<section id="tab-map" class="tab on"><div id="map"></div>
+ <div id="spbar"><span class="lbl">Tree type:</span>
+  <button data-sp="fir" class="on">White fir / Douglas-fir</button><button data-sp="ponderosa">Ponderosa</button><button data-sp="pinyon">Pinyon</button><button data-sp="spruce">Spruce / subalpine fir</button><button data-sp="">Heat map off</button></div>
+ <div id="cover" hidden></div>
+ <div id="panel">
+  <select id="species" hidden><option value="fir">fir</option><option value="ponderosa">ponderosa</option><option value="pinyon">pinyon</option><option value="spruce">spruce</option><option value="">off</option></select>
+  <div class="row"><button id="gps">📍 Me</button><button id="top">⭐ Best nearby</button><button id="roads">🛣 Roads here</button><button id="offline">⬇ Save area</button></div>
+  <div class="small opac"><label for="nocutop"><span class="sw"></span> No-cut shading</label> <input id="nocutop" type="range" min="0" max="60" step="5" value="25"> <span id="nocutv">25%</span></div>
+  <div id="msg" class="small">Heat map = <b>likelihood estimate</b>, not verified trees. Tap map for details.</div>
+ </div></section>
+<section id="tab-rules" class="tab"><div id="rules"></div></section>
+<section id="tab-saved" class="tab"><h2>Saved spots</h2><p class="small">Stored on this phone only (works offline). Mark spots where you found good trees — exported reports can be used to tune the heat map.</p><div id="saved"></div>
+ <button id="export">Export spots (JSON)</button></section>
+<section id="tab-about" class="tab"><div id="about"></div></section>
+</main>
+<canvas id="snow" hidden aria-hidden="true"></canvas><nav><button data-t="map" class="on">Map</button><button data-t="rules">Rules</button><button data-t="saved">Saved</button><button data-t="about">How / Sources</button></nav>
+<script src="vendor/leaflet.js"></script><script src="forests.js"></script><script src="setbacks.js"></script><script src="app.js"></script></body></html>

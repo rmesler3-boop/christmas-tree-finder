@@ -1,0 +1,90 @@
+{
+ "area": "pecos-las-vegas",
+ "bbox": [
+  -105.886,
+  35.221,
+  -105.151,
+  36.067
+ ],
+ "w": 2216,
+ "h": 3139,
+ "cell_m": 30.005176222189583,
+ "weights": {
+  "height": 0.2,
+  "cover": 0.12,
+  "disturb": 0.13,
+  "elev": 0.15,
+  "aspect": 0.1,
+  "slope": 0.1,
+  "twi": 0.05,
+  "road": 0.15
+ },
+ "generated": "LANDFIRE LF2024 EVT/EVH/EVC; LANDFIRE LF2020 Elev/Slope/Aspect; USFS EDW boundaries, wilderness, MVUM, MTBS, FACTS harvest, hazardous fuels",
+ "counts": {
+  "rec": 92,
+  "trails": 199,
+  "streams": 3946,
+  "roads": 370,
+  "burns": 9,
+  "harvest": 84,
+  "fuels": 167
+ },
+ "species": {
+  "fir": {
+   "label": "White fir / Douglas-fir (mixed conifer)",
+   "elev_ft": [
+    7800,
+    9800
+   ],
+   "share_high": 0.06929863956766107
+  },
+  "spruce": {
+   "label": "Spruce / subalpine & corkbark fir",
+   "elev_ft": [
+    9500,
+    11800
+   ],
+   "share_high": 0.011990614178444468
+  },
+  "ponderosa": {
+   "label": "Ponderosa pine",
+   "elev_ft": [
+    6800,
+    8800
+   ],
+   "share_high": 0.1660864022320797
+  },
+  "pinyon": {
+   "label": "Pinyon pine (and juniper)",
+   "elev_ft": [
+    5500,
+    7600
+   ],
+   "share_high": 0.2438206078644927
+  }
+ },
+ "gw": 1108,
+ "gh": 1570,
+ "region": "north",
+ "district": "031005",
+ "forest": "santafe",
+ "name": "Pecos-Las Vegas Ranger District",
+ "elev_bands": {
+  "fir": [
+   8000,
+   10200
+  ],
+  "spruce": [
+   9500,
+   12000
+  ],
+  "ponderosa": [
+   7000,
+   9000
+  ],
+  "pinyon": [
+   5800,
+   7600
+  ]
+ }
+}

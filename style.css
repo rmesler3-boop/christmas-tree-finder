@@ -1,0 +1,43 @@
+*{box-sizing:border-box}html,body{margin:0;height:100%;font-family:system-ui,sans-serif;background:#f4f7f2}
+body{display:flex;flex-direction:column}header{background:#14462a;color:#fff;padding:8px 10px;display:flex;gap:8px;align-items:center;justify-content:space-between}
+header select{max-width:60%}main{flex:1;position:relative;overflow:hidden}.tab{display:none;position:absolute;inset:0;overflow:auto;padding:12px}
+.tab.on{display:block}#tab-map{padding:0}#map{position:absolute;inset:0}
+#panel{position:absolute;z-index:500;left:8px;right:8px;bottom:8px;background:#fffd;border-radius:10px;padding:8px;box-shadow:0 2px 8px #0004}
+.row{display:flex;gap:4px;margin:6px 0;flex-wrap:wrap}.row button{flex:1}button{padding:8px;border-radius:8px;border:1px solid #275;background:#e8f3ea;font-size:14px}
+nav{display:flex;background:#14462a}nav button{flex:1;color:#fff;background:none;border:0;padding:12px 4px}nav button.on{background:#2a7a48}
+.small{font-size:12px;color:#333}.card{background:#fff;border-radius:10px;padding:10px;margin:8px 0;box-shadow:0 1px 4px #0002}
+.est{background:#fff3c4;padding:2px 4px;border-radius:4px}a{word-break:break-all}table{border-collapse:collapse}td{padding:2px 6px;border-bottom:1px solid #ddd;font-size:13px}
+.legend{background:linear-gradient(90deg,#bfd3e6,#8c96c6,#88419d,#4d004b);height:10px;border-radius:4px}
+#spbar{position:absolute;z-index:600;top:8px;left:56px;right:56px;display:flex;flex-wrap:wrap;gap:4px;align-items:center;background:#fffe;border-radius:10px;padding:6px;box-shadow:0 2px 8px #0004}
+#spbar .lbl{font-weight:bold;font-size:14px;margin-right:2px}#spbar button{padding:6px 9px;font-size:13px}#spbar button.on{background:#14462a;color:#fff;font-weight:bold}
+#cover{position:absolute;z-index:600;left:50%;transform:translateX(-50%);top:110px;background:#fff3c4;border:1px solid #c90;border-radius:8px;padding:8px 10px;font-size:13px;max-width:90%;text-align:center}
+@media(min-width:800px){#spbar{top:10px;left:60px;right:auto}#cover{top:64px}#panel{left:auto;width:420px}}
+.pix{image-rendering:pixelated}
+
+/* ===== Christmas theme: deep pine green, cranberry, gold, snow white; high contrast for outdoors ===== */
+@font-face{font-family:"Mountains of Christmas";src:url(fonts/MountainsOfChristmas-Bold.woff2) format("woff2");font-weight:700;font-display:swap}
+:root{--pine:#0f3d2e;--pine2:#1b5e3f;--cran:#b3122e;--gold:#e8be3c;--snow:#fbfaf5;--ink:#14201a}
+body{background:var(--snow);color:var(--ink)}
+header{background:var(--pine);border-bottom:3px solid var(--gold);padding:6px 10px}
+header h1{margin:0;font:700 24px/1.1 "Mountains of Christmas",Georgia,serif;color:#fff;display:flex;align-items:center;gap:6px;letter-spacing:.5px;text-shadow:0 1px 0 #000}
+.hicon{width:22px;height:28px;flex:none}
+header select{font-size:14px;padding:4px;border-radius:6px;border:2px solid var(--gold);background:#fff;color:var(--ink)}
+#snowbtn{background:transparent;color:#fff;border:2px solid #fff6;border-radius:50%;width:36px;height:36px;padding:0;font-size:18px}
+#snowbtn.on{background:var(--gold);color:var(--pine);border-color:var(--gold)}
+.pines{height:10px;background:var(--pine2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='10'%3E%3Cpolygon points='10,0 3,10 17,10' fill='%230f3d2e'/%3E%3Ccircle cx='10' cy='1' r='1.2' fill='%23e8be3c'/%3E%3C/svg%3E") repeat-x}
+nav{background:var(--pine);border-top:3px solid var(--cran)}nav button{font-weight:600;font-size:15px}nav button.on{background:var(--cran)}
+button{border:2px solid var(--pine2);background:#fff;color:var(--ink);font-weight:600}
+#spbar{border:2px solid var(--gold);background:#fffffff2}#spbar .lbl{font-family:"Mountains of Christmas",Georgia,serif;font-size:18px;color:var(--cran)}
+#spbar button.on{background:var(--pine);color:#fff;border-color:var(--pine)}
+#panel{background:#fffffff5;border:2px solid var(--gold)}
+.card{border-left:5px solid var(--pine2)}h2{font-family:"Mountains of Christmas",Georgia,serif;color:var(--cran);font-size:28px;margin:6px 0}
+a{color:#0b5394}.est{background:#fff1b8;color:#5a4300}
+#snow{position:fixed;inset:0;pointer-events:none;z-index:900}
+.treemk{background:none;border:0;filter:drop-shadow(0 1px 2px #000a)}
+.leaflet-tile-container canvas{image-rendering:auto}
+
+@media(max-width:520px){header h1{font-size:19px;white-space:nowrap}header h1 .long{display:none}header select{max-width:42%;font-size:13px}}
+
+.opac{display:flex;align-items:center;gap:6px;margin:2px 0 4px}.opac input{flex:1}.opac .sw{display:inline-block;width:14px;height:14px;background:rgba(85,85,85,.35);border:1px solid #555;vertical-align:middle}
+
+.lvls{display:flex;flex-wrap:wrap;gap:4px 10px;margin:3px 0;font-size:12px;font-weight:600}.lvls i{display:inline-block;width:16px;height:12px;border:1px solid #0004;margin-right:3px;vertical-align:-2px;border-radius:2px}

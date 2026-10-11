@@ -1,0 +1,90 @@
+{
+ "area": "jemez",
+ "bbox": [
+  -106.866,
+  35.603,
+  -106.347,
+  36.018
+ ],
+ "w": 1562,
+ "h": 1540,
+ "cell_m": 29.99557157760668,
+ "weights": {
+  "height": 0.2,
+  "cover": 0.12,
+  "disturb": 0.13,
+  "elev": 0.15,
+  "aspect": 0.1,
+  "slope": 0.1,
+  "twi": 0.05,
+  "road": 0.15
+ },
+ "generated": "LANDFIRE LF2024 EVT/EVH/EVC; LANDFIRE LF2020 Elev/Slope/Aspect; USFS EDW boundaries, wilderness, MVUM, MTBS, FACTS harvest, hazardous fuels",
+ "counts": {
+  "rec": 68,
+  "trails": 41,
+  "streams": 1284,
+  "roads": 300,
+  "burns": 14,
+  "harvest": 83,
+  "fuels": 178
+ },
+ "species": {
+  "fir": {
+   "label": "White fir / Douglas-fir (mixed conifer)",
+   "elev_ft": [
+    7800,
+    9800
+   ],
+   "share_high": 0.1932554001696127
+  },
+  "spruce": {
+   "label": "Spruce / subalpine & corkbark fir",
+   "elev_ft": [
+    9500,
+    11800
+   ],
+   "share_high": 0.0985395846151288
+  },
+  "ponderosa": {
+   "label": "Ponderosa pine",
+   "elev_ft": [
+    6800,
+    8800
+   ],
+   "share_high": 0.2756156775362921
+  },
+  "pinyon": {
+   "label": "Pinyon pine (and juniper)",
+   "elev_ft": [
+    5500,
+    7600
+   ],
+   "share_high": 0.12725277283535927
+  }
+ },
+ "gw": 781,
+ "gh": 770,
+ "region": "north",
+ "district": "031003",
+ "forest": "santafe",
+ "name": "Jemez Ranger District",
+ "elev_bands": {
+  "fir": [
+   8000,
+   10200
+  ],
+  "spruce": [
+   9500,
+   12000
+  ],
+  "ponderosa": [
+   7000,
+   9000
+  ],
+  "pinyon": [
+   5800,
+   7600
+  ]
+ }
+}

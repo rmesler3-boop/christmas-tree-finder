@@ -230,6 +230,7 @@ function editWp(id,init){map.closePopup();const a=wps();let w=a.find(z=>z.id===i
 window.editWp=editWp;
 window.delWp=id=>{const w=wps().find(z=>z.id===id);if(!w||!confirm(`Delete waypoint “${w.name||WT[w.type].n}”?`))return;map.closePopup();setWps(wps().filter(z=>z.id!==id));};
 window.newWp=(lat,lng)=>editWp(null,{lat,lng});
+map.on('popupopen',()=>$('#xhair').hidden=true);map.on('popupclose',()=>$('#xhair').hidden=false);
 window.saveSpot=(lat,lng,good)=>editWp(null,{lat,lng,found:good?'yes':''});
 map.on('contextmenu',e=>newWp(e.latlng.lat,e.latlng.lng));   // right-click, or long-press on phones
 $('#addwp').onclick=()=>{const c=map.getCenter();newWp(c.lat,c.lng);};

@@ -36,7 +36,7 @@
     7800,
     9800
    ],
-   "share_high": 0.050451266174022256
+   "share_high": 0.05010344559005365
   },
   "spruce": {
    "label": "Spruce / subalpine & corkbark fir",
@@ -52,7 +52,7 @@
     6800,
     8800
    ],
-   "share_high": 0.18277424034426693
+   "share_high": 0.1814309080818997
   },
   "pinyon": {
    "label": "Pinyon pine (and juniper)",
@@ -60,13 +60,13 @@
     5500,
     7600
    ],
-   "share_high": 0.28339953851096766
+   "share_high": 0.2823480445132459
   }
  },
  "small_tree": {
   "lidar_weight": 0.35,
   "meta_weight": 0.12,
-  "lidar": "USGS 3DEP NM_SouthEast_2018_D19 (QL2, flown Nov 2018-May 2019), all 1063 tiles of Sacramento RD",
+  "lidar": "USGS 3DEP NM_SouthEast_2018_D19 (QL2, flown Nov 2018-May 2019), all 1063 tiles of Sacramento RD; tile-edge cells lightly smoothed",
   "meta": "Meta/WRI 1 m canopy height v1 (imagery 2018), tile 023103221",
   "growth_ft_per_yr": [
    0.5,

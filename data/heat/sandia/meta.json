@@ -86,5 +86,28 @@
    5800,
    7600
   ]
+ },
+ "parcels": {
+  "source": "https://gis.ose.nm.gov/server_s/rest/services/Parcels/County_Parcels_2026/MapServer",
+  "tax_year": 2026,
+  "counties": {
+   "Bernalillo": {
+    "parcels": 54619,
+    "private": 54300,
+    "federal": 249,
+    "no_owner": 70,
+    "big_skipped": 0
+   },
+   "Sandoval": {
+    "parcels": 4076,
+    "private": 4007,
+    "federal": 24,
+    "no_owner": 45,
+    "big_skipped": 0
+   }
+  },
+  "cells_newly_masked": 7270,
+  "skipped_big": [],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
  }
 }

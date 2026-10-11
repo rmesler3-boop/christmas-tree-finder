@@ -86,5 +86,35 @@
    5800,
    7600
   ]
+ },
+ "parcels": {
+  "source": "https://gis.ose.nm.gov/server_s/rest/services/Parcels/County_Parcels_2026/MapServer",
+  "tax_year": 2026,
+  "counties": {
+   "Catron": {
+    "parcels": 2,
+    "private": 2,
+    "federal": 0,
+    "no_owner": 0,
+    "big_skipped": 0
+   },
+   "Rio Arriba": {
+    "parcels": 1741,
+    "private": 1678,
+    "federal": 38,
+    "no_owner": 25,
+    "big_skipped": 0
+   },
+   "Sandoval": {
+    "parcels": 5940,
+    "private": 5728,
+    "federal": 36,
+    "no_owner": 176,
+    "big_skipped": 0
+   }
+  },
+  "cells_newly_masked": 5594,
+  "skipped_big": [],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
  }
 }

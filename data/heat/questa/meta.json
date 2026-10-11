@@ -86,5 +86,35 @@
    5800,
    7600
   ]
+ },
+ "parcels": {
+  "source": "https://gis.ose.nm.gov/server_s/rest/services/Parcels/County_Parcels_2026/MapServer",
+  "tax_year": 2026,
+  "counties": {
+   "Colfax": {
+    "parcels": 3838,
+    "private": 740,
+    "federal": 0,
+    "no_owner": 3098,
+    "big_skipped": 0
+   },
+   "Mora": {
+    "parcels": 1,
+    "private": 1,
+    "federal": 0,
+    "no_owner": 0,
+    "big_skipped": 0
+   },
+   "Taos": {
+    "parcels": 10444,
+    "private": 9278,
+    "federal": 10,
+    "no_owner": 1156,
+    "big_skipped": 0
+   }
+  },
+  "cells_newly_masked": 6384,
+  "skipped_big": [],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
  }
 }

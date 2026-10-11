@@ -86,5 +86,66 @@
    5800,
    7600
   ]
+ },
+ "parcels": {
+  "source": "https://gis.ose.nm.gov/server_s/rest/services/Parcels/County_Parcels_2026/MapServer",
+  "tax_year": 2026,
+  "counties": {
+   "Catron": {
+    "parcels": 8,
+    "private": 8,
+    "federal": 0,
+    "no_owner": 0,
+    "big_skipped": 0
+   },
+   "Cibola": {
+    "parcels": 19567,
+    "private": 18895,
+    "federal": 463,
+    "no_owner": 205,
+    "big_skipped": 4
+   },
+   "McKinley": {
+    "parcels": 3541,
+    "private": 3408,
+    "federal": 49,
+    "no_owner": 84,
+    "big_skipped": 0
+   },
+   "Sandoval": {
+    "parcels": 124,
+    "private": 107,
+    "federal": 1,
+    "no_owner": 16,
+    "big_skipped": 0
+   },
+   "Valencia": {
+    "parcels": 146,
+    "private": 144,
+    "federal": 2,
+    "no_owner": 0,
+    "big_skipped": 0
+   }
+  },
+  "cells_newly_masked": 6406,
+  "skipped_big": [
+   [
+    "U.S. Dept. Of Agric.",
+    5516
+   ],
+   [
+    "U.S.G. Natl. Park Service",
+    102154
+   ],
+   [
+    "American,Tower Corp.",
+    5840
+   ],
+   [
+    "U.S.G. Natl. Park Service",
+    51344
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
  }
 }

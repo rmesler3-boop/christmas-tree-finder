@@ -86,5 +86,28 @@
    5500,
    7600
   ]
+ },
+ "parcels": {
+  "source": "https://gis.ose.nm.gov/server_s/rest/services/Parcels/County_Parcels_2026/MapServer",
+  "tax_year": 2026,
+  "counties": {
+   "Lincoln": {
+    "parcels": 32141,
+    "private": 25891,
+    "federal": 31,
+    "no_owner": 6219,
+    "big_skipped": 0
+   },
+   "Otero": {
+    "parcels": 9,
+    "private": 1,
+    "federal": 8,
+    "no_owner": 0,
+    "big_skipped": 0
+   }
+  },
+  "cells_newly_masked": 4343,
+  "skipped_big": [],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
  }
 }

@@ -86,5 +86,88 @@
    5500,
    7600
   ]
+ },
+ "parcels": {
+  "source": "https://gis.ose.nm.gov/server_s/rest/services/Parcels/County_Parcels_2026/MapServer",
+  "tax_year": 2026,
+  "counties": {
+   "Catron": {
+    "parcels": 2456,
+    "private": 2441,
+    "federal": 15,
+    "no_owner": 0,
+    "big_skipped": 0
+   },
+   "Sierra": {
+    "parcels": 132,
+    "private": 121,
+    "federal": 6,
+    "no_owner": 5,
+    "big_skipped": 0
+   },
+   "Socorro": {
+    "parcels": 7807,
+    "private": 6302,
+    "federal": 1243,
+    "no_owner": 249,
+    "big_skipped": 13
+   }
+  },
+  "cells_newly_masked": 94920,
+  "skipped_big": [
+   [
+    "State Of New Mexico",
+    2998
+   ],
+   [
+    "State Of New Mexico",
+    2944
+   ],
+   [
+    "State Of New Mexico",
+    2999
+   ],
+   [
+    "State Of New Mexico",
+    2995
+   ],
+   [
+    "State Of New Mexico",
+    3052
+   ],
+   [
+    "State Of New Mexico",
+    3334
+   ],
+   [
+    "State Of New Mexcio",
+    2999
+   ],
+   [
+    "State Of New Mexico",
+    3037
+   ],
+   [
+    "Us Fish & Wildlife",
+    2997
+   ],
+   [
+    "Us Fish & Wildlife",
+    2970
+   ],
+   [
+    "State Of New Mexico",
+    2972
+   ],
+   [
+    "State Of New Mexcio",
+    2999
+   ],
+   [
+    "State Of New Mexico",
+    3078
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
  }
 }

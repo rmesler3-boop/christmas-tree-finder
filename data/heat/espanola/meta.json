@@ -86,5 +86,56 @@
    5800,
    7600
   ]
+ },
+ "parcels": {
+  "source": "https://gis.ose.nm.gov/server_s/rest/services/Parcels/County_Parcels_2026/MapServer",
+  "tax_year": 2026,
+  "counties": {
+   "Mora": {
+    "parcels": 1,
+    "private": 1,
+    "federal": 0,
+    "no_owner": 0,
+    "big_skipped": 0
+   },
+   "Rio Arriba": {
+    "parcels": 19158,
+    "private": 18674,
+    "federal": 47,
+    "no_owner": 437,
+    "big_skipped": 0
+   },
+   "Sandoval": {
+    "parcels": 1957,
+    "private": 1317,
+    "federal": 21,
+    "no_owner": 619,
+    "big_skipped": 0
+   },
+   "San Miguel": {
+    "parcels": 3396,
+    "private": 3195,
+    "federal": 17,
+    "no_owner": 184,
+    "big_skipped": 0
+   },
+   "Santa Fe": {
+    "parcels": 75393,
+    "private": 72278,
+    "federal": 162,
+    "no_owner": 2953,
+    "big_skipped": 0
+   },
+   "Taos": {
+    "parcels": 3780,
+    "private": 2310,
+    "federal": 11,
+    "no_owner": 1459,
+    "big_skipped": 0
+   }
+  },
+  "cells_newly_masked": 3559,
+  "skipped_big": [],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
  }
 }

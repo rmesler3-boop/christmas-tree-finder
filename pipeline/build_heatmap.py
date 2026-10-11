@@ -203,6 +203,8 @@ def main():
     if opts.get("district"):
         dmask = rasterize(edw_features("EDW_RangerDistricts_03/MapServer/1", bbox, where=f"districtorgcode='{opts['district']}'", offset=0.0002), bbox, w, h)
         landok &= dmask; legal &= dmask
+    _pp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache", "parcels", os.path.basename(out.rstrip("/")) + ".npy")
+    if os.path.exists(_pp) and np.load(_pp).shape == landok.shape: landok &= ~np.load(_pp)  # private county parcels (parcels.py)
     Image.fromarray((landok*255).astype(np.uint8), "L").save(os.path.join(out, "land.png"), optimize=True)
     hw = edw_features("6", bbox, fields="NAME", offset=0.0001, base="https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Transportation/MapServer")
     def slim(fs, keep=()):

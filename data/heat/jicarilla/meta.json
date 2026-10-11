@@ -86,5 +86,21 @@
    5800,
    7600
   ]
+ },
+ "parcels": {
+  "source": "https://gis.ose.nm.gov/server_s/rest/services/Parcels/County_Parcels_2026/MapServer",
+  "tax_year": 2026,
+  "counties": {
+   "Rio Arriba": {
+    "parcels": 195,
+    "private": 167,
+    "federal": 17,
+    "no_owner": 11,
+    "big_skipped": 0
+   }
+  },
+  "cells_newly_masked": 2727,
+  "skipped_big": [],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
  }
 }

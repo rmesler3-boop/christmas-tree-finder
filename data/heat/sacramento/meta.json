@@ -97,5 +97,35 @@
    5500,
    7600
   ]
+ },
+ "parcels": {
+  "source": "https://gis.ose.nm.gov/server_s/rest/services/Parcels/County_Parcels_2026/MapServer",
+  "tax_year": 2026,
+  "counties": {
+   "Chaves": {
+    "parcels": 77,
+    "private": 69,
+    "federal": 5,
+    "no_owner": 3,
+    "big_skipped": 0
+   },
+   "Lincoln": {
+    "parcels": 2,
+    "private": 2,
+    "federal": 0,
+    "no_owner": 0,
+    "big_skipped": 0
+   },
+   "Otero": {
+    "parcels": 24402,
+    "private": 23745,
+    "federal": 232,
+    "no_owner": 425,
+    "big_skipped": 0
+   }
+  },
+  "cells_newly_masked": 12089,
+  "skipped_big": [],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
  }
 }

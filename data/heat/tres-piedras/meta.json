@@ -86,5 +86,28 @@
    5800,
    7600
   ]
+ },
+ "parcels": {
+  "source": "https://gis.ose.nm.gov/server_s/rest/services/Parcels/County_Parcels_2026/MapServer",
+  "tax_year": 2026,
+  "counties": {
+   "Rio Arriba": {
+    "parcels": 5808,
+    "private": 5654,
+    "federal": 33,
+    "no_owner": 121,
+    "big_skipped": 0
+   },
+   "Taos": {
+    "parcels": 33804,
+    "private": 32357,
+    "federal": 29,
+    "no_owner": 1418,
+    "big_skipped": 0
+   }
+  },
+  "cells_newly_masked": 9226,
+  "skipped_big": [],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
  }
 }

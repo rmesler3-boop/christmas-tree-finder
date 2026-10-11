@@ -86,5 +86,35 @@
    5500,
    7600
   ]
+ },
+ "parcels": {
+  "source": "https://gis.ose.nm.gov/server_s/rest/services/Parcels/County_Parcels_2026/MapServer",
+  "tax_year": 2026,
+  "counties": {
+   "Catron": {
+    "parcels": 124,
+    "private": 118,
+    "federal": 6,
+    "no_owner": 0,
+    "big_skipped": 0
+   },
+   "Grant": {
+    "parcels": 4653,
+    "private": 2556,
+    "federal": 57,
+    "no_owner": 2040,
+    "big_skipped": 0
+   },
+   "Sierra": {
+    "parcels": 11,
+    "private": 8,
+    "federal": 2,
+    "no_owner": 1,
+    "big_skipped": 0
+   }
+  },
+  "cells_newly_masked": 1352,
+  "skipped_big": [],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
  }
 }

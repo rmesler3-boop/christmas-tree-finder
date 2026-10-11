@@ -86,5 +86,49 @@
    5800,
    7600
   ]
+ },
+ "parcels": {
+  "source": "https://gis.ose.nm.gov/server_s/rest/services/Parcels/County_Parcels_2026/MapServer",
+  "tax_year": 2026,
+  "counties": {
+   "Colfax": {
+    "parcels": 4479,
+    "private": 2618,
+    "federal": 1,
+    "no_owner": 1860,
+    "big_skipped": 0
+   },
+   "Mora": {
+    "parcels": 2911,
+    "private": 2874,
+    "federal": 7,
+    "no_owner": 30,
+    "big_skipped": 0
+   },
+   "Rio Arriba": {
+    "parcels": 2331,
+    "private": 2275,
+    "federal": 11,
+    "no_owner": 45,
+    "big_skipped": 0
+   },
+   "Santa Fe": {
+    "parcels": 47,
+    "private": 44,
+    "federal": 2,
+    "no_owner": 1,
+    "big_skipped": 0
+   },
+   "Taos": {
+    "parcels": 24218,
+    "private": 20602,
+    "federal": 26,
+    "no_owner": 3590,
+    "big_skipped": 0
+   }
+  },
+  "cells_newly_masked": 4973,
+  "skipped_big": [],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
  }
 }

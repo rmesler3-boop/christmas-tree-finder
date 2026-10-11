@@ -86,5 +86,35 @@
    5500,
    7600
   ]
+ },
+ "parcels": {
+  "source": "https://gis.ose.nm.gov/server_s/rest/services/Parcels/County_Parcels_2026/MapServer",
+  "tax_year": 2026,
+  "counties": {
+   "Chaves": {
+    "parcels": 29,
+    "private": 22,
+    "federal": 7,
+    "no_owner": 0,
+    "big_skipped": 0
+   },
+   "Eddy": {
+    "parcels": 1038,
+    "private": 426,
+    "federal": 595,
+    "no_owner": 17,
+    "big_skipped": 0
+   },
+   "Otero": {
+    "parcels": 241,
+    "private": 195,
+    "federal": 46,
+    "no_owner": 0,
+    "big_skipped": 0
+   }
+  },
+  "cells_newly_masked": 3885,
+  "skipped_big": [],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
  }
 }

@@ -86,5 +86,66 @@
    5500,
    7600
   ]
+ },
+ "parcels": {
+  "source": "https://gis.ose.nm.gov/server_s/rest/services/Parcels/County_Parcels_2026/MapServer",
+  "tax_year": 2026,
+  "counties": {
+   "Bernalillo": {
+    "parcels": 452,
+    "private": 449,
+    "federal": 1,
+    "no_owner": 2,
+    "big_skipped": 0
+   },
+   "Lincoln": {
+    "parcels": 685,
+    "private": 339,
+    "federal": 1,
+    "no_owner": 345,
+    "big_skipped": 0
+   },
+   "Socorro": {
+    "parcels": 826,
+    "private": 737,
+    "federal": 82,
+    "no_owner": 7,
+    "big_skipped": 0
+   },
+   "Torrance": {
+    "parcels": 12743,
+    "private": 12545,
+    "federal": 25,
+    "no_owner": 169,
+    "big_skipped": 4
+   },
+   "Valencia": {
+    "parcels": 18861,
+    "private": 18646,
+    "federal": 6,
+    "no_owner": 209,
+    "big_skipped": 0
+   }
+  },
+  "cells_newly_masked": 11008,
+  "skipped_big": [
+   [
+    "Walker Louella T",
+    236661
+   ],
+   [
+    "Waste Management Of Nm",
+    4104
+   ],
+   [
+    "Weeks Logan",
+    270380
+   ],
+   [
+    "Leal Bennie P",
+    207422
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
  }
 }

@@ -232,6 +232,7 @@ def main():
         pos = score[(score > 0) & legal]
         p99 = float(np.percentile(pos, 99)) if pos.size else 1.0
         q = np.clip(score/max(p99, 1e-6), 0, 1)  # relative within area (99th pct = top colour)
+        q = np.where(landok, q, 0)  # hard zero off cuttable USFS land (private/state/BLM/wilderness) so no zoom level can show it
         Image.fromarray(np.clip(q*255, 0, 255).astype(np.uint8), "L").save(os.path.join(out, f"s_{sp}.png"), optimize=True)  # coloured in the app
         savegrid("score_" + sp, np.clip(q*255, 0, 255))
         savegrid("hab_" + sp, np.clip(f_hab*255, 0, 255))

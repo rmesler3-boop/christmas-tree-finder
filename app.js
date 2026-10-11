@@ -59,7 +59,7 @@ async function areaHeat(A,sp){if(A.heat[sp])return A.heat[sp];const d=await imgD
 async function loadGrid(A,n){if(A.grids[n])return A.grids[n];const d=await imgData(`${A.D}g_${n}.png`),o=new Uint8Array(d.width*d.height);for(let i=0;i<o.length;i++)o[i]=d.data[i*4];return A.grids[n]=o;}
 function drawAllowed(A,ctx,coords,size){const m=A.meta,[W,S,E,N]=m.bbox,z=coords.z,org=L.point(coords.x*size.x,coords.y*size.y);
  const P=(lat,lng)=>map.project([lat,lng],z).subtract(org);const a=P(N,W),b=P(S,E);
- ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';const cp=(b.x-a.x)/m.w;if(cp>3)ctx.filter=`blur(${(cp*.3).toFixed(1)}px)`;ctx.drawImage(A.land.c,a.x,a.y,b.x-a.x,b.y-a.y);ctx.filter='none';
+ ctx.imageSmoothingEnabled=false;ctx.drawImage(A.land.c,a.x,a.y,b.x-a.x,b.y-a.y); /* hard ownership/land mask: no smoothing or blur, so heat can't bleed onto private/non-USFS cells */
  const nw=map.unproject(org,z),se=map.unproject(org.add(size),z);const sb=getSetbacks(A.e.forest);
  const mpp=40075016.686*Math.cos(nw.lat*Math.PI/180)/Math.pow(2,z+8);ctx.globalCompositeOperation='destination-out';ctx.strokeStyle=ctx.fillStyle='#000';ctx.lineCap=ctx.lineJoin='round';
  for(const k in sb){const r=sb[k]*0.3048/mpp;if(r<0.75||!A.vec[k])continue;const pad=sb[k]*0.3048/90000;ctx.lineWidth=Math.max(1,2*r);

@@ -1,4 +1,4 @@
-const V='tf-v18', SHELL=['./','index.html','style.css','app.js','forests.js','setbacks.js','about.html','manifest.webmanifest','icon-192-v2.png','icon-512-v2.png','icon-maskable-512-v2.png','apple-touch-icon-v2.png','favicon-32-v2.png','fonts/MountainsOfChristmas-Bold.woff2',
+const V='tf-v19', SHELL=['./','index.html','style.css','app.js','forests.js','setbacks.js','about.html','manifest.webmanifest','icon-192-v2.png','icon-512-v2.png','icon-maskable-512-v2.png','apple-touch-icon-v2.png','favicon-32-v2.png','fonts/MountainsOfChristmas-Bold.woff2',
 'vendor/leaflet.js','vendor/leaflet.css','vendor/images/marker-icon.png','vendor/images/marker-icon-2x.png','vendor/images/marker-shadow.png','vendor/images/layers.png',
 'data/heat/index.json','data/forests.geojson','data/wilderness.geojson','data/districts.geojson','data/mvum_sacramento.geojson',
 ...['meta.json','land.png','vec.json',...['fir','ponderosa','pinyon','spruce'].flatMap(s=>[`s_${s}.png`,`g_score_${s}.png`,`g_hab_${s}.png`]),

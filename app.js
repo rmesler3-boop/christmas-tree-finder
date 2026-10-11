@@ -1,6 +1,10 @@
 const $=s=>document.querySelector(s);
 const EDW='https://apps.fs.usda.gov/arcx/rest/services/EDW';
-if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+if('serviceWorker' in navigator){const hadCtl=!!navigator.serviceWorker.controller;
+ navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>{r.update();document.addEventListener('visibilitychange',()=>{if(!document.hidden)r.update();});});
+ // a new version took over: reload automatically unless the user is mid-edit, then offer a toast
+ navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!hadCtl)return;if(!document.querySelector('#wpedit')&&!window.__reloading){window.__reloading=1;location.reload();return;}
+  const t=document.createElement('div');t.id='updtoast';t.innerHTML='🎄 Update available – <b>tap to reload</b>';t.onclick=()=>location.reload();document.body.appendChild(t);});}
 // tabs
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button,.tab').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('#tab-'+b.dataset.t).classList.add('on');if(b.dataset.t==='map')map.invalidateSize();if(b.dataset.t==='saved')renderSaved();});
 const msg=t=>$('#msg').innerHTML=t;
@@ -133,7 +137,7 @@ function renderSavedD(){const el=$('#savedd');if(!el)return;const o=savedD(),ks=
 renderSavedD();
 // reconcile saved list with what is really in the cache (e.g. browser cleared storage)
 caches&&caches.open(DC).then(c=>c.keys()).then(ks=>{const o=savedD();let ch=0;for(const id in o)if(!ks.some(k=>k.url.includes(`/data/heat/${id}/meta.json`))){delete o[id];ch=1;}if(ch){setSavedD(o);renderSavedD();}}).catch(()=>{});
-map.on('click',async e=>{const sp=$('#species').value;let html=`${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}`;const A=areaAt(e.latlng.lat,e.latlng.lng);
+map.on('click',async e=>{const sp=$('#species').value;let html=navTop(e.latlng.lat,e.latlng.lng,'Spot')+`${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}`;const A=areaAt(e.latlng.lat,e.latlng.lng);
  if(A)html+=`<br><span class=small>${A.e.name}, ${A.e.forestname}</span>`;
  if(sp&&A){const m=A.meta,[W,S,E,N]=m.bbox,gw=Math.ceil(m.w/2),gh=Math.ceil(m.h/2),i=Math.min(gh-1,Math.floor((N-e.latlng.lat)/(N-S)*gh))*gw+Math.min(gw-1,Math.floor((e.latlng.lng-W)/(E-W)*gw));
   const g={};for(const n of [`score_${sp}`,`hab_${sp}`,'f_height','f_cover','f_disturb','f_slope','f_twi','f_road','elev50ft'])g[n]=(await loadGrid(A,n))[i];const H=await areaHeat(A,sp);
@@ -146,7 +150,7 @@ map.on('click',async e=>{const sp=$('#species').value;let html=`${e.latlng.lat.t
  {const r=reasonAt(e.latlng.lat,e.latlng.lng);if(r!==null){html+=r?`<div style="background:#ddd;padding:4px;margin-top:4px"><b>⛔ No cutting:</b> ${r}</div>`:`<div class=small>✔ Not in a mapped no-cut area (still check your permit map)</div>`;}}
  {const tf=tuneAt(e.latlng.lat,e.latlng.lng);if(tf!==1)html+=`<div class=small>Your field notes nearby: local tuning ${tf>1?'boost':'penalty'} ×${tf.toFixed(2)} <span class=est>local tuning</span></div>`;}
  html+=`<br><button onclick="newWp(${e.latlng.lat},${e.latlng.lng})">+ Waypoint here</button> <button onclick="saveSpot(${e.latlng.lat},${e.latlng.lng},true)">🌲 Found good tree here</button>`;
- html+=`<details><summary>Directions</summary>${navHtml(e.latlng.lat,e.latlng.lng,'Spot')}</details>`;
+ html+=navHtml(e.latlng.lat,e.latlng.lng,'Spot');
  L.popup().setLatLng(e.latlng).setContent(html).openOn(map);});
 function distToFeat(lat,lng,f){const g=f.geometry,kx=111320*Math.cos(lat*Math.PI/180),ky=110540;const X=c=>(c[0]-lng)*kx,Y=c=>(c[1]-lat)*ky;let best=1e12;
  const seg=(p,q)=>{const ax=X(p),ay=Y(p),bx=X(q),by=Y(q),dx=bx-ax,dy=by-ay,l=dx*dx+dy*dy;let t=l?-(ax*dx+ay*dy)/l:0;t=Math.max(0,Math.min(1,t));const x=ax+t*dx,y=ay+t*dy;best=Math.min(best,x*x+y*y);};
@@ -169,7 +173,7 @@ $('#top').onclick=async()=>{const sp=$('#species').value||'fir';if(!$('#species'
  for(const A of Object.values(AREAS).filter(A=>A.ready&&aBounds(A.e).pad(.2).contains(c))){const sc=await loadGrid(A,'score_'+sp),H=await areaHeat(A,sp),m=A.meta,[W,S,E,N]=m.bbox,gw=Math.ceil(m.w/2),gh=Math.ceil(m.h/2);
   for(let y=0;y<gh;y+=2)for(let x=0;x<gw;x+=2){const v=sc[y*gw+x]/255;if(v<H.mins[3])continue;const lat=N-(y+.5)/gh*(N-S),lng=W+(x+.5)/gw*(E-W);const d=map.distance(c,[lat,lng]);if(d<8000)cand.push({v:v*tuneAt(lat,lng),raw:v,lat,lng,d,A,H});}}
  cand.sort((a,b)=>b.v-a.v);const pick=[];for(const k of cand){if(reasonAt(k.lat,k.lng,k.A))continue;if(pick.every(p=>map.distance([p.lat,p.lng],[k.lat,k.lng])>700))pick.push(k);if(pick.length>=8)break;}
- topLayer.clearLayers();pick.forEach((p,i)=>L.marker([p.lat,p.lng],{icon:treeIcon('#b3122e',i+1)}).addTo(topLayer).bindPopup(`#${i+1} suggestion · <b>${(levelOf(p.raw,p.H.mins)||{n:''}).n}</b> in ${p.A.e.name} <span class="est">estimate</span><br>${(p.d/1000).toFixed(1)} km from ${me?'you':'map centre'}${p.v!==p.raw?' · <span class=est>tuned by your notes</span>':''}<br><button onclick="newWp(${p.lat},${p.lng})">+ Save as waypoint</button>${navHtml(p.lat,p.lng,'Suggestion '+(i+1))}`,{maxWidth:290}));
+ topLayer.clearLayers();pick.forEach((p,i)=>L.marker([p.lat,p.lng],{icon:treeIcon('#b3122e',i+1)}).addTo(topLayer).bindPopup(navTop(p.lat,p.lng,'Suggestion '+(i+1))+`#${i+1} suggestion · <b>${(levelOf(p.raw,p.H.mins)||{n:''}).n}</b> in ${p.A.e.name} <span class="est">estimate</span><br>${(p.d/1000).toFixed(1)} km from ${me?'you':'map centre'}${p.v!==p.raw?' · <span class=est>tuned by your notes</span>':''}<br><button onclick="newWp(${p.lat},${p.lng})">+ Save as waypoint</button>${navHtml(p.lat,p.lng,'Suggestion '+(i+1))}`,{maxWidth:290}));
  msg(pick.length?`${pick.length} suggested top-scoring spots (numbered red trees; Very good/Best level) within 8 km. Verify land status & rules on the ground.`:'No Very good/Best cuttable spots within 8 km of here. Try another tree type or move the map.');};
 // roads in view (live from USFS MVUM)
 $('#roads').onclick=async()=>{if(map.getZoom()<11)return msg('Zoom in closer (zoom ≥ 11) to load roads.');const b=map.getBounds();msg('Loading MVUM roads…');
@@ -205,13 +209,15 @@ function nearestRoad(lat,lng){let best=null;const kx=111320*Math.cos(lat*Math.PI
  return best&&best.d<8000?best:null;}
 const gmaps=(lat,lng)=>`https://www.google.com/maps/dir/?api=1&destination=${lat.toFixed(6)},${lng.toFixed(6)}&travelmode=driving`;
 const geoUri=(lat,lng,lab)=>`geo:${lat.toFixed(6)},${lng.toFixed(6)}?q=${lat.toFixed(6)},${lng.toFixed(6)}(${encodeURIComponent(lab||'Waypoint')})`;
-function navHtml(lat,lng,lab){let h=`<div class="nav"><a class="btn" target=_blank rel=noopener href="${gmaps(lat,lng)}">🚗 Directions</a> <a class="btn" href="${geoUri(lat,lng,lab)}">🗺 Other maps app</a></div><details><summary>Road access, distance & bearing</summary>`;
+function navTop(lat,lng,lab){return `<div class="navtop"><a class="dirbtn" target=_blank rel=noopener href="${gmaps(lat,lng)}">🚗 Directions</a><a class="btn" href="${geoUri(lat,lng,lab)}">🗺 Other app</a></div>`;}
+window.navTop=navTop;
+function navHtml(lat,lng,lab){let h=`<details><summary>Road access, distance & bearing</summary>`;
  const r=nearestRoad(lat,lng);
  if(r)h+=`<div class="small">Nearest MVUM forest road${r.id?' ('+esc(r.id)+')':''}: <b>${fmtD(r.d)}</b> walk (straight line, ${bearing(L.latLng(r.lat,r.lng),L.latLng(lat,lng))} from road). <a class="btn" target=_blank rel=noopener href="${gmaps(r.lat,r.lng)}">🚗 Directions to nearest road access</a> <button onclick="map.setView([${r.lat},${r.lng}],16)">Show</button></div>`;
  else h+=`<div class="small">Nearest forest road: zoom into this district to load its roads.</div>`;
  if(me){const m=me.getLatLng(),p=L.latLng(lat,lng);h+=`<div class="small">From your GPS: <b>${fmtD(m.distanceTo(p))}</b>, bearing <b>${bearing(m,p)}</b> (straight line, works offline)</div>`;}
  return h+`<div class="small warn">⚠ Google may route on roads that are missing, closed, seasonal or need high clearance/4WD. Check the MVUM and conditions; don’t rely on phone signal.</div></details>`;}
-function wpPopup(w){const t=WT[w.type]||WT.other;return `<b>${t.e} ${esc(w.name)||t.n}</b> <span class=small>· ${t.n}</span><br>${w.type==='tree'||w.found?`<b>${FOUND[w.found||'']}</b>`:''}${w.visited?` <span class=small>· visited ${esc(w.visited)}</span>`:''}
+function wpPopup(w){const t=WT[w.type]||WT.other;return navTop(w.lat,w.lng,w.name)+`<b>${t.e} ${esc(w.name)||t.n}</b> <span class=small>· ${t.n}</span><br>${w.type==='tree'||w.found?`<b>${FOUND[w.found||'']}</b>`:''}${w.visited?` <span class=small>· visited ${esc(w.visited)}</span>`:''}
  ${w.note?`<div class="note">${esc(w.note).replace(/\n/g,'<br>')}</div>`:'<div class="small">(no notes)</div>'}<div class="small">${w.lat.toFixed(5)}, ${w.lng.toFixed(5)} · drag marker to move</div>
  <button onclick="editWp('${w.id}')">✏️ Edit / notes</button> <button onclick="delWp('${w.id}')">🗑 Delete</button>${navHtml(w.lat,w.lng,w.name)}`;}
 function drawWps(){spotLayer.clearLayers();wps().forEach(w=>{const m=L.marker([w.lat,w.lng],{icon:wpIcon(w),draggable:true,title:w.name}).addTo(spotLayer);
@@ -231,14 +237,14 @@ function editWp(id,init){map.closePopup();const a=wps();let w=a.find(z=>z.id===i
 window.editWp=editWp;
 window.delWp=id=>{const w=wps().find(z=>z.id===id);if(!w||!confirm(`Delete waypoint “${w.name||WT[w.type].n}”?`))return;map.closePopup();setWps(wps().filter(z=>z.id!==id));};
 window.newWp=(lat,lng)=>editWp(null,{lat,lng});
-map.on('popupopen',()=>$('#xhair').hidden=true);map.on('popupclose',()=>$('#xhair').hidden=false);
+map.on('popupopen',()=>{$('#xhair').hidden=true;$('#panel').classList.add('popup-hide');});map.on('popupclose',()=>{$('#xhair').hidden=false;$('#panel').classList.remove('popup-hide');}); // the bottom panel sits above the map, so hide it while a popup is open
 window.saveSpot=(lat,lng,good)=>editWp(null,{lat,lng,found:good?'yes':''});
 map.on('contextmenu',e=>newWp(e.latlng.lat,e.latlng.lng));   // right-click, or long-press on phones
 $('#addwp').onclick=()=>{const c=map.getCenter();newWp(c.lat,c.lng);};
 $('#markme').onclick=()=>{msg('Getting your location…');navigator.geolocation.getCurrentPosition(p=>newWp(p.coords.latitude,p.coords.longitude),err=>msg('Location unavailable: '+err.message),{enableHighAccuracy:true,timeout:15000});};
-function renderSaved(){const s=wps();$('#saved').innerHTML=s.length?s.slice().reverse().map(x=>{const t=WT[x.type]||WT.other;return `<div class="card"><b>${t.e} ${esc(x.name)||t.n}</b> <span class=small>${t.n}${x.visited?' · visited '+esc(x.visited):''}</span><br>
+function renderSaved(){const s=wps();$('#saved').innerHTML=s.length?s.slice().reverse().map(x=>{const t=WT[x.type]||WT.other;return `<div class="card">${navTop(x.lat,x.lng,x.name)}<b>${t.e} ${esc(x.name)||t.n}</b> <span class=small>${t.n}${x.visited?' · visited '+esc(x.visited):''}</span><br>
  ${x.type==='tree'||x.found?`<b>${FOUND[x.found||'']}</b><br>`:''}${x.note?`<div class="note">${esc(x.note).replace(/\n/g,'<br>')}</div>`:''}<span class="small">${x.lat.toFixed(5)}, ${x.lng.toFixed(5)}</span><br>
- <button onclick="go('${x.id}')">Show</button> <button onclick="editWp('${x.id}')">✏️ Edit</button> <a class=btn target=_blank rel=noopener href="${gmaps(x.lat,x.lng)}">🚗 Directions</a> <a class=btn href="${geoUri(x.lat,x.lng,x.name)}">🗺 Other app</a> <button onclick="delWp('${x.id}')">🗑</button></div>`;}).join('')
+ <button onclick="go('${x.id}')">Show</button> <button onclick="editWp('${x.id}')">✏️ Edit</button><button onclick="delWp('${x.id}')">🗑</button></div>`;}).join('')
   :'<p>No waypoints yet. Long-press (or right-click) the map, tap “+ Waypoint”, or “Mark my location”.</p>';}
 window.go=id=>{const x=wps().find(z=>z.id===id);document.querySelector('nav button[data-t=map]').click();map.setView([x.lat,x.lng],15);spotLayer.eachLayer(m=>{if(m.getLatLng().equals([x.lat,x.lng]))m.openPopup();});};
 const dl=(name,type,text)=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();a.remove();};

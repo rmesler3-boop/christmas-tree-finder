@@ -1,4 +1,4 @@
-const V='tf-v14', SHELL=['./','index.html','style.css','app.js','forests.js','setbacks.js','about.html','manifest.webmanifest','icon-192-v2.png','icon-512-v2.png','icon-maskable-512-v2.png','apple-touch-icon-v2.png','favicon-32-v2.png','fonts/MountainsOfChristmas-Bold.woff2',
+const V='tf-v15', SHELL=['./','index.html','style.css','app.js','forests.js','setbacks.js','about.html','manifest.webmanifest','icon-192-v2.png','icon-512-v2.png','icon-maskable-512-v2.png','apple-touch-icon-v2.png','favicon-32-v2.png','fonts/MountainsOfChristmas-Bold.woff2',
 'vendor/leaflet.js','vendor/leaflet.css','vendor/images/marker-icon.png','vendor/images/marker-icon-2x.png','vendor/images/marker-shadow.png','vendor/images/layers.png',
 'data/heat/index.json','data/forests.geojson','data/wilderness.geojson','data/districts.geojson','data/mvum_sacramento.geojson',
 ...['meta.json','land.png','vec.json',...['fir','ponderosa','pinyon','spruce'].flatMap(s=>[`s_${s}.png`,`g_score_${s}.png`,`g_hab_${s}.png`]),
@@ -6,7 +6,7 @@ const V='tf-v14', SHELL=['./','index.html','style.css','app.js','forests.js','se
 self.addEventListener('install',e=>e.waitUntil(caches.open(V).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V&&k!=='tf-tiles'&&k!=='tf-v-districts').map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{const u=e.request.url;if(e.request.method!=='GET')return;
- if(u.startsWith(self.location.origin)){e.respondWith(fetch(e.request).then(resp=>{if(resp.ok){const cl=resp.clone();caches.open(V).then(c=>c.put(e.request,cl));}return resp;}).catch(()=>caches.match(e.request).then(r=>r||Response.error())));return;}
+ if(u.startsWith(self.location.origin)){e.respondWith(fetch(e.request,{cache:'no-cache'}).then(resp=>{if(resp.ok){const cl=resp.clone();caches.open(V).then(c=>c.put(e.request,cl));}return resp;}).catch(()=>caches.match(e.request).then(r=>r||Response.error())));return;}
  const tile=/\/tile\/\d+\/\d+\/\d+/.test(u)&&!/openstreetmap\.org/.test(u); // OSM tiles: left to the browser's normal HTTP cache (OSM policy: no offline/prefetch)
  if(!tile)return; // other cross-origin requests (e.g. live road queries) go straight to the network
  // map tiles: network first (keeps the request's Referer/CORS mode), fall back to cache offline; only cache good CORS responses, never opaque/error tiles

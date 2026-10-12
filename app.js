@@ -55,7 +55,7 @@ async function areaHeat(A,sp){if(A.heat[sp])return A.heat[sp];const d=await imgD
   for(let y=0;y<hh;y++)for(let X=0;X<w;X++){let v=0;for(let jj=0;jj<k;jj++){const yy=y*k+jj;if(yy>=H0)break;for(let ii=0;ii<k;ii++){const xx=X*k+ii;if(xx<W0){const tt=g[yy*W0+xx];if(tt>v)v=tt;}}}
    const p=(y*w+X)*4,lv=levelOf(v/255,mins);if(!lv)continue;o.data[p]=lv.c[0];o.data[p+1]=lv.c[1];o.data[p+2]=lv.c[2];o.data[p+3]=lv.a;}
   x.putImageData(o,0,0);levels.push({k,c});}
- return A.heat[sp]={levels,mins,n};}
+ return A.heat[sp]={levels,mins,n,g,W0,H0};}
 async function loadGrid(A,n){if(A.grids[n])return A.grids[n];const d=await imgData(`${A.D}g_${n}.png`),o=new Uint8Array(d.width*d.height);for(let i=0;i<o.length;i++)o[i]=d.data[i*4];return A.grids[n]=o;}
 function drawAllowed(A,ctx,coords,size){const m=A.meta,[W,S,E,N]=m.bbox,z=coords.z,org=L.point(coords.x*size.x,coords.y*size.y);
  const P=(lat,lng)=>map.project([lat,lng],z).subtract(org);const a=P(N,W),b=P(S,E);
@@ -168,13 +168,24 @@ let me=null;$('#gps').onclick=()=>{msg('Locating…');navigator.geolocation.getC
  err=>msg('Location unavailable: '+err.message),{enableHighAccuracy:true,timeout:15000});};
 // best nearby (statewide): top cells within 8 km across all loaded districts, spread out
 let topLayer=L.layerGroup().addTo(map);
-$('#top').onclick=async()=>{const sp=$('#species').value||'fir';if(!$('#species').value)pickSp(sp);await heatReady;const c=me?me.getLatLng():map.getCenter();
+/* Best nearby: rank full-res (30 m) final score, blended with lidar/Meta small-tree density, box-smoothed ~150 m (5x5), spacing 300 m */
+const RANK_R=2,RANK_SPACE=300;
+$('#top').onclick=async()=>{const sp=$('#species').value||'fir';if(!$('#species').value)pickSp(sp);await heatReady;const c=me?me.getLatLng():map.getCenter();const mode=($('#rankby')||{}).value||'score';
  if(map.getZoom()<MINZ)map.setView(c,11);await syncAreas();const cand=[];
- for(const A of Object.values(AREAS).filter(A=>A.ready&&aBounds(A.e).pad(.2).contains(c))){const sc=await loadGrid(A,'score_'+sp),H=await areaHeat(A,sp),m=A.meta,[W,S,E,N]=m.bbox,gw=Math.ceil(m.w/2),gh=Math.ceil(m.h/2);
-  for(let y=0;y<gh;y+=2)for(let x=0;x<gw;x+=2){const v=sc[y*gw+x]/255;if(v<H.mins[3])continue;const lat=N-(y+.5)/gh*(N-S),lng=W+(x+.5)/gw*(E-W);const d=map.distance(c,[lat,lng]);if(d<8000)cand.push({v:v*tuneAt(lat,lng),raw:v,lat,lng,d,A,H});}}
- cand.sort((a,b)=>b.v-a.v);const pick=[];for(const k of cand){if(reasonAt(k.lat,k.lng,k.A))continue;if(pick.every(p=>map.distance([p.lat,p.lng],[k.lat,k.lng])>700))pick.push(k);if(pick.length>=8)break;}
- topLayer.clearLayers();pick.forEach((p,i)=>L.marker([p.lat,p.lng],{icon:treeIcon('#b3122e',i+1)}).addTo(topLayer).bindPopup(navTop(p.lat,p.lng,'Suggestion '+(i+1))+`#${i+1} suggestion · <b>${(levelOf(p.raw,p.H.mins)||{n:''}).n}</b> in ${p.A.e.name} <span class="est">estimate</span><br>${(p.d/1000).toFixed(1)} km from ${me?'you':'map centre'}${p.v!==p.raw?' · <span class=est>tuned by your notes</span>':''}<br><button onclick="newWp(${p.lat},${p.lng})">+ Save as waypoint</button>${navHtml(p.lat,p.lng,'Suggestion '+(i+1))}`,{maxWidth:290}));
- msg(pick.length?`${pick.length} suggested top-scoring spots (numbered red trees; Very good/Best level) within 8 km. Verify land status & rules on the ground.`:'No Very good/Best cuttable spots within 8 km of here. Try another tree type or move the map.');};
+ for(const A of Object.values(AREAS).filter(A=>A.ready&&aBounds(A.e).pad(.2).contains(c))){const H=await areaHeat(A,sp),m=A.meta,[W,S,E,N]=m.bbox,{g,W0,H0}=H,ld=A.land.raw.data,gw=Math.ceil(W0/2);
+  const fs=m.small_tree?await loadGrid(A,'f_small'):null,src=m.small_tree?await loadGrid(A,'src_small'):null;
+  const dLat=8000/111320,dLng=8000/(111320*Math.cos(c.lat*Math.PI/180));
+  const x0=Math.max(0,Math.floor((c.lng-dLng-W)/(E-W)*W0)),x1=Math.min(W0-1,Math.ceil((c.lng+dLng-W)/(E-W)*W0)),y0=Math.max(0,Math.floor((N-c.lat-dLat)/(N-S)*H0)),y1=Math.min(H0-1,Math.ceil((N-c.lat+dLat)/(N-S)*H0));
+  if(x1<=x0||y1<=y0)continue;const ww=x1-x0+1,hh=y1-y0+1,val=new Float32Array(ww*hh),ok=new Uint8Array(ww*hh),den=new Float32Array(ww*hh);
+  for(let y=0;y<hh;y++)for(let x=0;x<ww;x++){const X=x+x0,Y=y+y0,i=Y*W0+X;if(!ld[i*4+3]||!g[i])continue;const s=g[i]/255;const hi=(Y>>1)*gw+(X>>1);const has=fs&&src[hi];const dn=has?fs[hi]/255:null;
+   const k=y*ww+x;ok[k]=1;den[k]=dn==null?-1:dn;val[k]=mode==='density'?(dn==null?s*.5:dn):(dn==null?s:.5*s+.5*dn);}
+  for(let y=RANK_R;y<hh-RANK_R;y++)for(let x=RANK_R;x<ww-RANK_R;x++){const k=y*ww+x;if(!ok[k])continue;let sum=0,n=0,ds=0,dn=0;
+   for(let j=-RANK_R;j<=RANK_R;j++)for(let q=-RANK_R;q<=RANK_R;q++){const kk=k+j*ww+q;if(ok[kk]){sum+=val[kk];n++;if(den[kk]>=0){ds+=den[kk];dn++;}}}
+   if(n<15)continue;const lat=N-(y+y0+.5)/H0*(N-S),lng=W+(x+x0+.5)/W0*(E-W),d=map.distance(c,[lat,lng]);if(d>8000)continue;const v=sum/n;
+   cand.push({v:v*tuneAt(lat,lng),raw:g[(y+y0)*W0+x+x0]/255,sm:v,dens:dn?ds/dn:null,dsrc:fs?src[((y+y0)>>1)*gw+((x+x0)>>1)]:0,lat,lng,d,A,H});}}
+ cand.sort((a,b)=>b.v-a.v);const pick=[];for(const k of cand){if(pick.every(p=>map.distance([p.lat,p.lng],[k.lat,k.lng])>RANK_SPACE)){if(reasonAt(k.lat,k.lng,k.A))continue;pick.push(k);}if(pick.length>=8)break;}
+ topLayer.clearLayers();pick.forEach((p,i)=>L.marker([p.lat,p.lng],{icon:treeIcon('#b3122e',i+1)}).addTo(topLayer).bindPopup(navTop(p.lat,p.lng,'Suggestion '+(i+1))+`#${i+1} suggestion · <b>${(levelOf(p.raw,p.H.mins)||{n:''}).n}</b> in ${p.A.e.name} <span class="est">estimate</span><br>${p.dens!=null?`🌲 Christmas-size tree density: <b>${Math.round(p.dens*100)}%</b> (rank in district, ${p.dsrc>=200?'lidar':'Meta CHM'}, ~150 m avg)<br>`:''}${(p.d/1000).toFixed(1)} km from ${me?'you':'map centre'} · ranked by ${mode==='density'?'tree density':'overall score'}${p.v!==p.sm?' · <span class=est>tuned by your notes</span>':''}<br><button onclick="newWp(${p.lat},${p.lng})">+ Save as waypoint</button>${navHtml(p.lat,p.lng,'Suggestion '+(i+1))}`,{maxWidth:290}));
+ msg(pick.length?`${pick.length} suggested spots within 8 km, ranked by ${mode==='density'?'Christmas-size tree density':'overall score (50% tree density where lidar/Meta data exist)'}, averaged over ~150 m, ≥300 m apart. Verify land status & rules on the ground.`:'No cuttable scored spots within 8 km of here. Try another tree type or move the map.');};
 // roads in view (live from USFS MVUM)
 $('#roads').onclick=async()=>{if(map.getZoom()<11)return msg('Zoom in closer (zoom ≥ 11) to load roads.');const b=map.getBounds();msg('Loading MVUM roads…');
  try{const u=`${EDW}/EDW_MVUM_02/MapServer/1/query?where=1%3D1&geometry=${b.getWest()},${b.getSouth()},${b.getEast()},${b.getNorth()}&geometryType=esriGeometryEnvelope&inSR=4326&outSR=4326&outFields=id,name,passengervehicle,highclearancevehicle,seasonal&maxAllowableOffset=0.0002&f=geojson`;

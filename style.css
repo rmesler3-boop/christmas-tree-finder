@@ -60,3 +60,5 @@ a.btn,label.btn{display:inline-block;padding:4px 8px;border:1px solid var(--pine
 a.dirbtn{display:inline-block;background:var(--cran,#b3122e);color:#fff!important;font-weight:700;font-size:15px;padding:8px 14px;border-radius:8px;text-decoration:none;box-shadow:0 1px 3px #0004}
 #updtoast{position:fixed;left:50%;transform:translateX(-50%);bottom:84px;z-index:4000;background:#0f3d2e;color:#fff;border:2px solid #e8be3c;border-radius:10px;padding:10px 14px;font-size:15px;cursor:pointer;box-shadow:0 3px 10px #0006}
 #panel.popup-hide{display:none}
+
+#rankby{flex:0 0 auto;max-width:38%;font-size:.85em;border-radius:8px;border:2px solid #1d4d2b;background:#fffaf0;padding:4px}

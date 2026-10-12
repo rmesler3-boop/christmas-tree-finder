@@ -62,3 +62,24 @@ a.dirbtn{display:inline-block;background:var(--cran,#b3122e);color:#fff!importan
 #panel.popup-hide{display:none}
 
 #rankby{flex:0 0 auto;max-width:38%;font-size:.85em;border-radius:8px;border:2px solid #1d4d2b;background:#fffaf0;padding:4px}
+
+/* ---- compact map-first layout (v23) ---- */
+header{display:flex;align-items:center;gap:6px;padding:2px 6px;min-height:44px;box-sizing:border-box;border-bottom-width:2px}
+header h1{font-size:19px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}header h1 .hicon{width:18px;height:22px}
+header select#forest{max-width:34%;font-size:12px;height:32px}
+#menubtn{min-width:44px;min-height:40px;font-size:22px;background:var(--cran);color:#fff;border:2px solid var(--gold);border-radius:8px;padding:0}
+#snowbtn{min-width:40px;min-height:40px}
+.pines{display:none}
+nav{position:fixed;z-index:2000;top:46px;right:6px;flex-direction:column;display:none;border:2px solid var(--gold);border-radius:10px;overflow:hidden;box-shadow:0 4px 14px #0006;min-width:180px}
+nav button{min-height:46px;text-align:left;padding:10px 16px}body.menuopen nav{display:flex}
+@media (display-mode: standalone){header h1{font-size:16px}}
+#spbar{right:auto;left:54px;top:10px;padding:3px;gap:0;flex-wrap:nowrap}#spbar .lbl,#spbar button{display:none}
+#spchip{min-height:40px;font-size:15px;font-weight:700;border:0;background:transparent;color:var(--pine);padding:0 6px;border-radius:8px}
+#panel{left:6px;right:6px;bottom:6px;padding:4px 6px;max-height:60%;overflow:auto}
+#panel.collapsed>*:not(#sheetbar){display:none!important}
+#sheetbar{display:flex;gap:4px}#sheetbar button{flex:1;min-height:46px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;font-size:18px;padding:2px;line-height:1.1;position:relative}
+#sheetbar small{font-size:11px;font-weight:600}#panel:not(.collapsed) #sheetbar{margin-bottom:6px}
+#s-more .handle{position:absolute;top:3px;width:26px;height:3px;border-radius:2px;background:#9994}
+#msgtoast{position:fixed;z-index:1500;left:10px;right:10px;bottom:72px;background:#fffffff5;border:2px solid var(--gold);border-radius:10px;padding:8px 10px;font-size:13px;box-shadow:0 2px 8px #0004}
+#msgtoast[hidden]{display:none}
+@media (min-width:900px){#panel{left:auto;right:10px;width:380px}#msgtoast{left:auto;right:10px;width:380px}}

@@ -4,12 +4,13 @@
 <link rel="manifest" href="manifest.webmanifest?v=2"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32-v2.png"><link rel="icon" type="image/png" sizes="192x192" href="icon-192-v2.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-v2.png">
 <link rel="stylesheet" href="vendor/leaflet.css"><link rel="stylesheet" href="style.css"></head><body>
 <header><h1><svg class="hicon" viewBox="0 0 30 38" aria-hidden="true"><polygon points="15,2 3,16 9,16 1,28 29,28 21,16 27,16" fill="#2e8b57" stroke="#e8be3c" stroke-width="1.5"/><rect x="12" y="28" width="6" height="7" fill="#8d5a32"/><circle cx="15" cy="3" r="2.6" fill="#e8be3c"/></svg><span class="long">NM&nbsp;</span>Christmas Tree Finder</h1><button id="snowbtn" title="Gentle snowfall" aria-label="Toggle snowfall">❄</button>
-<select id="forest"></select></header>
+<select id="forest"></select><button id="menubtn" aria-label="Menu" aria-expanded="false">☰</button></header>
 <div class="pines" aria-hidden="true"></div><main>
 <section id="tab-map" class="tab on"><div id="map"></div><div id="xhair" aria-hidden="true">✛</div>
- <div id="spbar"><span class="lbl">Tree type:</span>
+ <div id="spbar"><select id="spchip" aria-label="Tree type"><option value="fir">🌲 Fir</option><option value="ponderosa">🌲 Ponderosa</option><option value="pinyon">🌲 Pinyon</option><option value="spruce">🌲 Spruce</option><option value="">Heat off</option></select><span class="lbl">Tree type:</span>
   <button data-sp="fir" class="on">White fir / Douglas-fir</button><button data-sp="ponderosa">Ponderosa</button><button data-sp="pinyon">Pinyon</button><button data-sp="spruce">Spruce / subalpine fir</button><button data-sp="">Heat map off</button></div>
- <div id="panel">
+ <div id="panel" class="collapsed">
+  <div id="sheetbar"><button id="s-top" aria-label="Best nearby">⭐<small>Best</small></button><button id="s-gps" aria-label="My location">📍<small>Me</small></button><button id="s-wp" aria-label="Add waypoint">➕<small>Waypoint</small></button><button id="s-more" aria-label="More controls" aria-expanded="false"><span class="handle"></span>▲<small>More</small></button></div>
   <div id="cover" hidden></div>
   <select id="species" hidden><option value="fir">fir</option><option value="ponderosa">ponderosa</option><option value="pinyon">pinyon</option><option value="spruce">spruce</option><option value="">off</option></select>
   <div class="row"><button id="gps">📍 Me</button><button id="top">⭐ Best nearby</button><button id="roads">🛣 Roads here</button><button id="offline">⬇ Save area</button></div>
@@ -23,5 +24,5 @@
  <h2>Saved districts (offline heat maps)</h2><div id="savedd"></div></section>
 <section id="tab-about" class="tab"><div id="about"></div></section>
 </main>
-<canvas id="snow" hidden aria-hidden="true"></canvas><nav><button data-t="map" class="on">Map</button><button data-t="rules">Rules</button><button data-t="saved">Saved</button><button data-t="about">How / Sources</button></nav>
+<div id="msgtoast" hidden></div><canvas id="snow" hidden aria-hidden="true"></canvas><nav><button data-t="map" class="on">Map</button><button data-t="rules">Rules</button><button data-t="saved">Saved</button><button data-t="about">How / Sources</button></nav>
 <script src="vendor/leaflet.js"></script><script src="forests.js"></script><script src="setbacks.js"></script><script src="app.js"></script></body></html>

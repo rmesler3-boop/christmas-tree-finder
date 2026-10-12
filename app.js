@@ -7,7 +7,7 @@ if('serviceWorker' in navigator){const hadCtl=!!navigator.serviceWorker.controll
   const t=document.createElement('div');t.id='updtoast';t.innerHTML='🎄 Update available – <b>tap to reload</b>';t.onclick=()=>location.reload();document.body.appendChild(t);});}
 // tabs
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button,.tab').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('#tab-'+b.dataset.t).classList.add('on');if(b.dataset.t==='map')map.invalidateSize();if(b.dataset.t==='saved')renderSaved();});
-const msg=t=>$('#msg').innerHTML=t;
+let _mt;const msg=t=>{$('#msg').innerHTML=t;const p=$('#panel');if(p&&p.classList.contains('collapsed')&&!/Levels are/.test(t)){const o=$('#msgtoast');o.innerHTML=t;o.hidden=false;clearTimeout(_mt);_mt=setTimeout(()=>o.hidden=true,7000);}};
 // map
 const map=L.map('map',{zoomControl:true}).setView([32.957,-105.742],12);
 // panes: base tiles(200) < heat(350) < no-cut(380) < roads/boundaries vectors(overlayPane 400) < markers
@@ -22,7 +22,7 @@ base['Topo (USGS)'].addTo(map);
 {let errs=0;base['Street map (OpenStreetMap)'].on('tileerror',()=>{if(++errs===4&&map.hasLayer(base['Street map (OpenStreetMap)'])){map.removeLayer(base['Street map (OpenStreetMap)']);base['Topo (USGS)'].addTo(map);msg('OpenStreetMap tiles were unavailable – switched to USGS Topo.');}});
  base['Street map (OpenStreetMap)'].on('add',()=>errs=0);}
 const over={};
-const lc=L.control.layers(base,over,{collapsed:innerWidth<900}).addTo(map);
+const lc=L.control.layers(base,over,{collapsed:true}).addTo(map);
 async function gj(url,style,name,on=true,popup){const d=await (await fetch(url)).json();const l=L.geoJSON(d,{style,onEachFeature:popup?(f,ly)=>ly.bindPopup(popup(f.properties)):null});lc.addOverlay(l,name);if(on)l.addTo(map);return l;}
 gj('data/forests.geojson',{color:'#0a6b2a',weight:2,fill:false},'National forest boundaries (USFS)');
 gj('data/districts.geojson',{color:'#555',weight:1,dashArray:'4 4',fill:false},'Ranger districts (USFS)',false,p=>p.districtname);
@@ -98,7 +98,7 @@ async function setHeat(){await heatReady;const sp=$('#species').value;if(heatLay
  heatLayer=new HeatGrid({sp,pane:'heatPane',opacity:.85}).addTo(map);showLegend();}
 window.refreshMask=async()=>{await heatReady;noCutLayer.redraw();if(heatLayer)heatLayer.redraw();};
 $('#species').onchange=setHeat;
-function pickSp(sp){$('#species').value=sp;document.querySelectorAll('#spbar button').forEach(b=>b.classList.toggle('on',b.dataset.sp===sp));setHeat().then(checkCover);}
+function pickSp(sp){$('#species').value=sp;if($('#spchip'))$('#spchip').value=sp;document.querySelectorAll('#spbar button').forEach(b=>b.classList.toggle('on',b.dataset.sp===sp));setHeat().then(checkCover);}
 document.querySelectorAll('#spbar button').forEach(b=>b.onclick=()=>pickSp(b.dataset.sp));
 const areaAt=(lat,lng)=>Object.values(AREAS).filter(A=>A.ready).find(A=>{const [W,S,E,N]=A.meta.bbox;if(lng<W||lng>E||lat<S||lat>N)return false;const d=A.land.raw,x=Math.floor((lng-W)/(E-W)*d.width),y=Math.floor((N-lat)/(N-S)*d.height);return d.data[(y*d.width+x)*4+3]>0;})
  ||Object.values(AREAS).filter(A=>A.ready).find(A=>aBounds(A.e).contains([lat,lng]));
@@ -316,3 +316,13 @@ if(localStorage.getItem('tf-snow')||location.hash.includes('snow')){snowOn=true;
 
 {const s=$('#nocutop');if(s){s.value=Math.round((noCutLayer?noCutLayer.options.opacity:+(localStorage.getItem('tf-nocut-op')||.25))*100);
  s.oninput=()=>{const v=s.value/100;localStorage.setItem('tf-nocut-op',v);$('#nocutv').textContent=s.value+'%';heatReady.then(()=>noCutLayer.setOpacity(v));};$('#nocutv').textContent=s.value+'%';}}
+
+/* compact UI: bottom sheet, tree-type chip, hamburger menu */
+(()=>{const P=$('#panel'),more=$('#s-more');const setSheet=o=>{P.classList.toggle('collapsed',!o);more.setAttribute('aria-expanded',o);more.querySelector('small').textContent=o?'Less':'More';more.childNodes[1].textContent=o?'▼':'▲';setTimeout(()=>map.invalidateSize(),50);};
+ more.onclick=()=>setSheet(P.classList.contains('collapsed'));$('#s-top').onclick=()=>$('#top').click();$('#s-gps').onclick=()=>$('#gps').click();$('#s-wp').onclick=()=>$('#addwp').click();
+ let y0=null;$('#sheetbar').addEventListener('touchstart',e=>y0=e.touches[0].clientY,{passive:true});$('#sheetbar').addEventListener('touchend',e=>{if(y0==null)return;const dy=e.changedTouches[0].clientY-y0;if(dy<-30)setSheet(true);else if(dy>30)setSheet(false);y0=null;});
+ $('#msgtoast').onclick=()=>{$('#msgtoast').hidden=true;};
+ $('#spchip').onchange=e=>pickSp(e.target.value);$('#spchip').value=$('#species').value;
+ const mb=$('#menubtn'),nav=document.querySelector('nav');mb.onclick=()=>{const o=!document.body.classList.contains('menuopen');document.body.classList.toggle('menuopen',o);mb.setAttribute('aria-expanded',o);};
+ nav.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{document.body.classList.remove('menuopen');mb.setAttribute('aria-expanded',false);}));
+ const cv=$('#cover');new MutationObserver(()=>{if(!cv.hidden&&/Downloading|failed/i.test(cv.textContent))setSheet(true);}).observe(cv,{childList:true,subtree:true,attributes:true});})();

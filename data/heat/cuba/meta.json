@@ -100,21 +100,99 @@
    },
    "Rio Arriba": {
     "parcels": 1741,
-    "private": 1678,
+    "private": 1676,
     "federal": 38,
     "no_owner": 25,
-    "big_skipped": 0
+    "big_skipped": 2
    },
    "Sandoval": {
     "parcels": 5940,
-    "private": 5728,
-    "federal": 36,
+    "private": 5715,
+    "federal": 48,
     "no_owner": 176,
-    "big_skipped": 0
+    "big_skipped": 1
    }
   },
-  "cells_newly_masked": 5594,
-  "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "cells_newly_masked": 5507,
+  "top_private_owners_by_cells": [
+   [
+    "Jicarilla Apache Nation",
+    614601
+   ],
+   [
+    "Schmitz, Loren M, Schmitz, Donna Schmitz Trust",
+    14188
+   ],
+   [
+    "Battleship Mesa Llc, An Oklahoma Limited Liability Company",
+    12777
+   ],
+   [
+    "Edwards, Jason C",
+    11182
+   ],
+   [
+    "Wiese, Henry Louis Iii And Carol Ruth Revocable Living Trust",
+    11169
+   ],
+   [
+    "Pollister, Edward B",
+    10015
+   ],
+   [
+    "Mossback Properties Llc",
+    9107
+   ],
+   [
+    "Williams, Joe Dan | Williams, Jay Travis",
+    8757
+   ],
+   [
+    "Donaldson, Arlie Burl & Donaldson, Karin Archer Revocable Trust",
+    8535
+   ],
+   [
+    "Stevenson, Peggy And Stevenson, Winifred Trust Stevenson Ranch",
+    8520
+   ],
+   [
+    "Schmitz, Lawrence Dale Schmitz, Alma",
+    8300
+   ],
+   [
+    "Miley, Raymond J & Miley, Meleesa J.",
+    6875
+   ],
+   [
+    "R J D Gurule Llc Etal",
+    6607
+   ],
+   [
+    "Madrid, Paul",
+    6353
+   ],
+   [
+    "Tc Johnson Enterprises Llc",
+    6228
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Stevenson, Steve Stevenson, Eunice",
+    868,
+    56
+   ],
+   [
+    "Rio Arriba County",
+    1038,
+    27
+   ],
+   [
+    "Girl Scouts Of New Mexico Trails Inc.",
+    462,
+    6
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

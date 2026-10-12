@@ -100,10 +100,10 @@
    },
    "Rio Arriba": {
     "parcels": 19158,
-    "private": 18674,
-    "federal": 47,
+    "private": 18660,
+    "federal": 57,
     "no_owner": 437,
-    "big_skipped": 0
+    "big_skipped": 4
    },
    "Sandoval": {
     "parcels": 1957,
@@ -114,17 +114,17 @@
    },
    "San Miguel": {
     "parcels": 3396,
-    "private": 3195,
-    "federal": 17,
+    "private": 3189,
+    "federal": 23,
     "no_owner": 184,
     "big_skipped": 0
    },
    "Santa Fe": {
     "parcels": 75393,
-    "private": 72278,
-    "federal": 162,
+    "private": 72173,
+    "federal": 261,
     "no_owner": 2953,
-    "big_skipped": 0
+    "big_skipped": 6
    },
    "Taos": {
     "parcels": 3780,
@@ -134,8 +134,121 @@
     "big_skipped": 0
    }
   },
-  "cells_newly_masked": 3559,
-  "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "cells_newly_masked": 2941,
+  "top_private_owners_by_cells": [
+   [
+    "San Ildefonso Pueblo",
+    122472
+   ],
+   [
+    "Santa Clara Indian Reservation",
+    121200
+   ],
+   [
+    "Tesuque Pueblo",
+    74039
+   ],
+   [
+    "Martinez, Freddie",
+    73925
+   ],
+   [
+    "Baca, Benny J & Irene J",
+    73905
+   ],
+   [
+    "Alpizar-Dominguez, Jose L",
+    73905
+   ],
+   [
+    "Morales, Ever Y & Yahaira V Ortega-Leyva",
+    73905
+   ],
+   [
+    "Velasquez, Mark A",
+    73905
+   ],
+   [
+    "Jimenez, Gloria",
+    73905
+   ],
+   [
+    "Barraza, Elaine M",
+    73905
+   ],
+   [
+    "Maestas, Donovan J M",
+    73905
+   ],
+   [
+    "Gamboa, Enedina Or Jose Gamboa-Nunez",
+    73905
+   ],
+   [
+    "Villa, Vernon",
+    73905
+   ],
+   [
+    "Pueblo Of Santa Ana",
+    53752
+   ],
+   [
+    "Bonanza Creek Ranch Llc",
+    51508
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Abiquiu Coop. Livestock Assoc.",
+    6395,
+    325
+   ],
+   [
+    "Nuestra Senora Del Rosario San Fernando Y Santiago Land Grant",
+    4522,
+    93
+   ],
+   [
+    "Santo Domingo De Cundiyo Grant",
+    818,
+    54
+   ],
+   [
+    "Christian Brothers",
+    263,
+    49
+   ],
+   [
+    "The Pueblo Of Santo Domingo",
+    762,
+    23
+   ],
+   [
+    "Nambe Pueblo Development Corporation",
+    7614,
+    22
+   ],
+   [
+    "Gallegos, David J",
+    7614,
+    22
+   ],
+   [
+    "Boy Scouts Of America",
+    264,
+    17
+   ],
+   [
+    "Santa Clara Indian Reservation",
+    1439,
+    14
+   ],
+   [
+    "Pueblo Of Santa Clara",
+    300,
+    5
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

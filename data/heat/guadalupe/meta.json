@@ -93,28 +93,106 @@
   "counties": {
    "Chaves": {
     "parcels": 29,
-    "private": 22,
+    "private": 20,
     "federal": 7,
     "no_owner": 0,
-    "big_skipped": 0
+    "big_skipped": 2
    },
    "Eddy": {
     "parcels": 1038,
-    "private": 426,
-    "federal": 595,
+    "private": 332,
+    "federal": 688,
     "no_owner": 17,
-    "big_skipped": 0
+    "big_skipped": 1
    },
    "Otero": {
     "parcels": 241,
-    "private": 195,
-    "federal": 46,
+    "private": 119,
+    "federal": 122,
     "no_owner": 0,
     "big_skipped": 0
    }
   },
-  "cells_newly_masked": 3885,
-  "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "cells_newly_masked": 3662,
+  "top_private_owners_by_cells": [
+   [
+    "Cauhape,J P Inc",
+    58266
+   ],
+   [
+    "New Mexico,State Of",
+    51852
+   ],
+   [
+    "Alamo Mountain Llc",
+    46334
+   ],
+   [
+    "Hughes, Clint & Amber",
+    43835
+   ],
+   [
+    "Hughes Brothers Ranch",
+    28619
+   ],
+   [
+    "Hughes, Trent W & Gentry A (Jt)",
+    26909
+   ],
+   [
+    "Kincaid,David",
+    23580
+   ],
+   [
+    "Alamo Mountain Llc Et Al (N-Jt) | Big Kahuna Land & Cattle Llc Et Al (N-Jt)",
+    21960
+   ],
+   [
+    "Jtl Guadalupe Ranch Llc",
+    15976
+   ],
+   [
+    "City Of El Paso Texas",
+    15421
+   ],
+   [
+    "Hughes, Trent W & Gentry A",
+    14401
+   ],
+   [
+    "Yaste, Arvel W",
+    13512
+   ],
+   [
+    "Runyan/Martin 4 Mile Ranch Llc",
+    10908
+   ],
+   [
+    "Region, Joshua James Et Al (Jt) | Walker-Region, Wendalyn Gail Et Al (Jt)",
+    9329
+   ],
+   [
+    "X-Bar Ranch Llc",
+    9326
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Alamo Mountain Llc",
+    260,
+    55
+   ],
+   [
+    "New Mexico,State Of",
+    1302,
+    16
+   ],
+   [
+    "New Mexico,State Of",
+    665,
+    14
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

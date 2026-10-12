@@ -100,21 +100,99 @@
    },
    "Rio Arriba": {
     "parcels": 2955,
-    "private": 2856,
+    "private": 2853,
     "federal": 41,
     "no_owner": 58,
-    "big_skipped": 0
+    "big_skipped": 3
    },
    "Sandoval": {
     "parcels": 483,
-    "private": 468,
-    "federal": 6,
+    "private": 467,
+    "federal": 7,
     "no_owner": 9,
     "big_skipped": 0
    }
   },
-  "cells_newly_masked": 5911,
-  "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "cells_newly_masked": 5875,
+  "top_private_owners_by_cells": [
+   [
+    "Board Of Christian Education United Presbyterian Church",
+    21640
+   ],
+   [
+    "New Mexico State Land",
+    15452
+   ],
+   [
+    "Schmitz, Loren M, Schmitz, Donna Schmitz Trust",
+    14175
+   ],
+   [
+    "Berryman Ranch, Llc,",
+    13659
+   ],
+   [
+    "Berryman Ranch, Llc.",
+    10824
+   ],
+   [
+    "Serrano, Ramon J Et Al",
+    10785
+   ],
+   [
+    "Abiquiu Dam & Reservoir",
+    10751
+   ],
+   [
+    "Edwards, Jason C",
+    10468
+   ],
+   [
+    "Hibner, Charles David Hibner, Verna A.",
+    10317
+   ],
+   [
+    "Pollister, Edward B",
+    10006
+   ],
+   [
+    "Baker, Janet M Et-Al",
+    9804
+   ],
+   [
+    "Schmitz, Lawrence Dale Schmitz, Alma",
+    8292
+   ],
+   [
+    "State Land",
+    6961
+   ],
+   [
+    "Saye Homestead",
+    5764
+   ],
+   [
+    "Riverbend Holdings Llc",
+    4579
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Board Of Christian Education United Presbyterian Church",
+    6432,
+    21
+   ],
+   [
+    "Rsm Ranch, Llc",
+    428,
+    15
+   ],
+   [
+    "Salazar, Severiana V Estate Of",
+    621,
+    1
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

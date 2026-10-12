@@ -93,31 +93,31 @@
   "counties": {
    "Mora": {
     "parcels": 4135,
-    "private": 4089,
-    "federal": 10,
+    "private": 4088,
+    "federal": 11,
     "no_owner": 36,
     "big_skipped": 0
    },
    "Rio Arriba": {
     "parcels": 1353,
-    "private": 1317,
-    "federal": 5,
+    "private": 1316,
+    "federal": 6,
     "no_owner": 31,
     "big_skipped": 0
    },
    "San Miguel": {
     "parcels": 22207,
-    "private": 21018,
-    "federal": 76,
+    "private": 20921,
+    "federal": 148,
     "no_owner": 1112,
-    "big_skipped": 1
+    "big_skipped": 26
    },
    "Santa Fe": {
     "parcels": 3712,
-    "private": 3571,
-    "federal": 74,
+    "private": 3548,
+    "federal": 96,
     "no_owner": 67,
-    "big_skipped": 0
+    "big_skipped": 1
    },
    "Taos": {
     "parcels": 19,
@@ -127,13 +127,206 @@
     "big_skipped": 0
    }
   },
-  "cells_newly_masked": 25292,
+  "cells_newly_masked": 22261,
+  "top_private_owners_by_cells": [
+   [
+    "Sc Ranch Llc",
+    362027
+   ],
+   [
+    "San Cristobal Ranch",
+    362027
+   ],
+   [
+    "Canon Blanco Llc",
+    228977
+   ],
+   [
+    "Kirkpatrick Land And Cattle Co Ltd",
+    102442
+   ],
+   [
+    "Nambe Pueblo Development Corporation",
+    84820
+   ],
+   [
+    "Gallegos, David J",
+    84820
+   ],
+   [
+    "Singleton Properties Llc",
+    57503
+   ],
+   [
+    "Nuestra Senora Del Rosario San Fernando Y Santiago Land Grant",
+    50380
+   ],
+   [
+    "Aks Ranch Limited Partnership",
+    49347
+   ],
+   [
+    "Estate Of Robert Quintana",
+    48235
+   ],
+   [
+    "Canada Springs, Llc",
+    44616
+   ],
+   [
+    "Bacacitawest, Llc",
+    42309
+   ],
+   [
+    "Anton Chico Land Grant",
+    39826
+   ],
+   [
+    "Tecolote Land Grant",
+    36724
+   ],
+   [
+    "Lop-Tecolote Ranch Lp",
+    33325
+   ]
+  ],
   "skipped_big": [
    [
     "Forest",
-    15877
+    1394,
+    15606
+   ],
+   [
+    "Old David John",
+    887,
+    811
+   ],
+   [
+    "Canon Blanco Llc",
+    2068,
+    367
+   ],
+   [
+    "Anton Chico Land Grant",
+    3088,
+    290
+   ],
+   [
+    "Cow Creek Ranch Club Llc",
+    293,
+    232
+   ],
+   [
+    "Land Of Enchantment Ranch Co Llc",
+    3613,
+    226
+   ],
+   [
+    "Canon Blanco Llc",
+    268,
+    162
+   ],
+   [
+    "Biophilia Foundation Inc",
+    1372,
+    160
+   ],
+   [
+    "Sun Ranch Lp",
+    1155,
+    137
+   ],
+   [
+    "Madrid Ivan Carl & Theresa T Revocable Trust",
+    368,
+    122
+   ],
+   [
+    "Padilla Cristobal L & Varela-Padilla Amalia",
+    405,
+    117
+   ],
+   [
+    "Benedictine Monastery",
+    369,
+    61
+   ],
+   [
+    "Canon Blanco Llc",
+    1084,
+    54
+   ],
+   [
+    "Outland Communities",
+    270,
+    54
+   ],
+   [
+    "Land Of Enchantment Ranch Co Llc",
+    1974,
+    44
+   ],
+   [
+    "Honey Boy Ranch Llc",
+    1006,
+    33
+   ],
+   [
+    "Canon Blanco Llc",
+    613,
+    27
+   ],
+   [
+    "Forked Lightning Ranch Ltd Texas Limited Partnership",
+    929,
+    22
+   ],
+   [
+    "Hutchison (New Mexico) Ranch Ltd",
+    1456,
+    20
+   ],
+   [
+    "Canon Blanco Llc",
+    1092,
+    15
+   ],
+   [
+    "Spicewood 5K Llc",
+    419,
+    12
+   ],
+   [
+    "Jsk Enterprises Llc",
+    368,
+    6
+   ],
+   [
+    "Glorieta 2.0 Inc",
+    912,
+    2
+   ],
+   [
+    "Timic L L C",
+    308,
+    1
+   ],
+   [
+    "Canon Blanco Llc",
+    387,
+    1
+   ],
+   [
+    "Henry Family Ranch Llc",
+    261,
+    1
+   ],
+   [
+    "Quien Sabe Properties Llc",
+    1206,
+    1
    ]
   ],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

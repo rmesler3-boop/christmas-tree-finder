@@ -93,14 +93,76 @@
   "counties": {
    "Catron": {
     "parcels": 5035,
-    "private": 5028,
-    "federal": 7,
+    "private": 5027,
+    "federal": 8,
     "no_owner": 0,
     "big_skipped": 0
    }
   },
-  "cells_newly_masked": 107,
+  "cells_newly_masked": 106,
+  "top_private_owners_by_cells": [
+   [
+    "Stockinger, Gary Peter",
+    9
+   ],
+   [
+    "Kiehne, Emil & Sons, Inc.",
+    5
+   ],
+   [
+    "El Caso Ranches, Inc.",
+    3
+   ],
+   [
+    "Catron County",
+    2
+   ],
+   [
+    "Spring Canyon Ranch, L.L.C.",
+    2
+   ],
+   [
+    "Nm Ranch & Cattle, Llc",
+    2
+   ],
+   [
+    "Williams, Matt",
+    1
+   ],
+   [
+    "Bluewaters Family Limited Partner",
+    1
+   ],
+   [
+    "Wd Real Estate Investments, Llc",
+    1
+   ],
+   [
+    "Deratany, Dale & Pamela Trust",
+    1
+   ],
+   [
+    "Cimarron Ranch, L.L.C.",
+    1
+   ],
+   [
+    "Allbritton Cattle Comany, Llc",
+    1
+   ],
+   [
+    "Armstrong, Bonnie L.",
+    1
+   ],
+   [
+    "Village Of Reserve",
+    1
+   ],
+   [
+    "Nash, Gregory A.",
+    1
+   ]
+  ],
   "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

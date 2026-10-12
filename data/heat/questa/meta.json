@@ -93,10 +93,10 @@
   "counties": {
    "Colfax": {
     "parcels": 3838,
-    "private": 740,
-    "federal": 0,
+    "private": 729,
+    "federal": 4,
     "no_owner": 3098,
-    "big_skipped": 0
+    "big_skipped": 7
    },
    "Mora": {
     "parcels": 1,
@@ -107,14 +107,127 @@
    },
    "Taos": {
     "parcels": 10444,
-    "private": 9278,
-    "federal": 10,
+    "private": 9274,
+    "federal": 11,
     "no_owner": 1156,
-    "big_skipped": 0
+    "big_skipped": 3
    }
   },
-  "cells_newly_masked": 6384,
-  "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "cells_newly_masked": 4714,
+  "top_private_owners_by_cells": [
+   [
+    "Taos Pueblo",
+    416786
+   ],
+   [
+    "P & M Mutz Ranch, Lc",
+    31642
+   ],
+   [
+    "Papierniak, Lucas",
+    30674
+   ],
+   [
+    "New Mexico State Trust Land",
+    30240
+   ],
+   [
+    "Green River Ii Llc",
+    25008
+   ],
+   [
+    "Agua Nueva Llc",
+    16478
+   ],
+   [
+    "Taos Pueblo (The)",
+    15043
+   ],
+   [
+    "Boy Scouts Of America",
+    12564
+   ],
+   [
+    "Express Ranches Llc",
+    9835
+   ],
+   [
+    "El Salto Del Agua Association | Vigil, Jose A                    %",
+    8907
+   ],
+   [
+    "Triangle J Farm & Ranch",
+    6820
+   ],
+   [
+    "Gallagher, Laurelle R",
+    6532
+   ],
+   [
+    "Villa Village Mobile Home | Ranch Llc",
+    6240
+   ],
+   [
+    "Rancho Milagro Taos Llc",
+    5948
+   ],
+   [
+    "Endless Blue Llc",
+    4119
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Vermejo Park Llc",
+    207597,
+    436
+   ],
+   [
+    "Pueblo Of Sandia",
+    5383,
+    311
+   ],
+   [
+    "Flying Horse Ranch, Llc",
+    4253,
+    149
+   ],
+   [
+    "Pueblo Of Sandia",
+    1265,
+    131
+   ],
+   [
+    "Boy Scouts Of America Tax Dept S 406",
+    54502,
+    130
+   ],
+   [
+    "Chevron Mining | Chevron Property Tax Department  %",
+    1507,
+    64
+   ],
+   [
+    "Mcgee 1972 Properties Llc",
+    1174,
+    57
+   ],
+   [
+    "Taos Land & Cattle Company I Llc",
+    507,
+    38
+   ],
+   [
+    "Taos Pueblo",
+    2767,
+    21
+   ],
+   [
+    "Ponil Ranch, Lp",
+    7726,
+    18
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

@@ -93,21 +93,99 @@
   "counties": {
    "Bernalillo": {
     "parcels": 54619,
-    "private": 54300,
-    "federal": 249,
+    "private": 54285,
+    "federal": 263,
     "no_owner": 70,
-    "big_skipped": 0
+    "big_skipped": 1
    },
    "Sandoval": {
     "parcels": 4076,
-    "private": 4007,
+    "private": 4005,
     "federal": 24,
     "no_owner": 45,
-    "big_skipped": 0
+    "big_skipped": 2
    }
   },
-  "cells_newly_masked": 7270,
-  "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "cells_newly_masked": 7117,
+  "top_private_owners_by_cells": [
+   [
+    "Us Indian Service | & Bureau Of Indian Affairs",
+    37487
+   ],
+   [
+    "Campbell Farming Corp",
+    37119
+   ],
+   [
+    "City Of Albuquerque",
+    32630
+   ],
+   [
+    "Diamond Tail Ltd",
+    21167
+   ],
+   [
+    "Paako Family Estate Llc",
+    9101
+   ],
+   [
+    "Regents Of Unm | Real Estate Dept",
+    6578
+   ],
+   [
+    "Campbell Farming Cor",
+    6148
+   ],
+   [
+    "Rio Grande Portland Cement Corp | C/O Mexcement Inc",
+    4984
+   ],
+   [
+    "Isleta Pueblo Grant",
+    3740
+   ],
+   [
+    "Unser Llc | C/O Allworth",
+    3739
+   ],
+   [
+    "Williams, Charles W",
+    3406
+   ],
+   [
+    "U S N F S",
+    3388
+   ],
+   [
+    "United State Of America",
+    3229
+   ],
+   [
+    "Bia",
+    2990
+   ],
+   [
+    "County Of Bernalillo | C/O County Manager",
+    2905
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Diamond Tail Ltd",
+    3985,
+    76
+   ],
+   [
+    "Campbell Farming Corp",
+    458,
+    59
+   ],
+   [
+    "Pueblo Of Sandia",
+    7489,
+    18
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

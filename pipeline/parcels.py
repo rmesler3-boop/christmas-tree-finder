@@ -10,7 +10,7 @@ LAYERS = {0:'Bernalillo',1:'Catron',2:'Chaves',3:'Cibola',4:'Colfax',8:'Eddy',9:
           21:'Rio Arriba',23:'Sandoval',25:'San Miguel',26:'Santa Fe',27:'Sierra',28:'Socorro',29:'Taos',30:'Torrance',32:'Valencia'}
 FED = re.compile(r"UNITED STATES|\bU\.? ?S\.? ?A\b|\bUSA\b|\bU ?S\b.*(GOV|FOREST|DEPT|OF AMERICA)|USDA|FOREST SERVICE|NATIONAL FOREST|"
                  r"BUREAU OF LAND|\bBLM\b|DEPT\.? OF (THE )?INTERIOR|DEPARTMENT OF (THE )?INTERIOR|DEPARTMENT OF AGRICULTURE|FEDERAL|"
-                 r"US GOV|U S GOV|GOVERNMENT OF THE UNITED|NATIONAL PARK|FISH (&|AND) WILDLIFE SERVICE", re.I)
+                 r"US GOV|U S GOV|GOVERNMENT OF THE UNITED|NATIONAL PARK|FISH (&|AND) WILDLIFE|STATE OF NEW ME|COMMISSIONER OF PUBLIC LANDS|STATE LAND OFFICE|STATE OF N\.? ?M\b|ENABLING ACT|BUREAU OF RECLAMATION|U\.S\. GOV", re.I)
 def get(url, tries=5):
     for i in range(tries):
         try: return json.load(urllib.request.urlopen(url, timeout=120))
@@ -31,7 +31,7 @@ def fetch(lid, bbox):
 def run(D, base="data/heat"):
     m = json.load(open(f"{base}/{D}/meta.json")); W,S,E,N = m["bbox"]
     land = np.array(Image.open(f"{base}/{D}/land.png")); h,w = land.shape
-    land0 = land.copy(); skipped = []; BIG = 260e4/900  # 1 sq mi in 30 m cells
+    land0 = land.copy(); own_ct = {}; skipped = []; BIG = 260e4/900  # 1 sq mi in 30 m cells
     img = Image.new("L",(w,h),0); dr = ImageDraw.Draw(img); stats = {}
     px = lambda p: ((p[0]-W)/(E-W)*w, (N-p[1])/(N-S)*h)
     for lid, cn in LAYERS.items():
@@ -48,8 +48,9 @@ def run(D, base="data/heat"):
                 t = Image.new("L",(w,h),0); td = ImageDraw.Draw(t)
                 for r in pr: td.polygon(r, fill=255)
                 tm = np.array(t) > 0
-                if tm.sum() and (tm & (land0 > 0)).sum() / tm.sum() > 0.5: nskip += 1; skipped.append((o, int(tm.sum()))); continue
-            npriv += 1
+                ov = int((tm & (land0 > 0)).sum())
+                if ov: nskip += 1; skipped.append((o, round(area*0.09), ov)); continue  # >1 sq mi and on land USFS+BLM layers call USFS: skip
+            npriv += 1; own_ct[o] = own_ct.get(o, 0) + area
             for r in pr:  # exterior + holes both filled by XOR trick: draw exteriors, holes are rare in assessor data -> ignore holes conservatively? no: fill all, inholdings inside private are private too
                 dr.polygon(r, fill=255, outline=255)
         if fs: stats[cn] = dict(parcels=len(fs), private=npriv, federal=nfed, no_owner=nnull, big_skipped=nskip)
@@ -60,8 +61,8 @@ def run(D, base="data/heat"):
     for fn in os.listdir(f"{base}/{D}"):
         if fn.startswith("s_") and fn.endswith(".png"):
             s = np.array(Image.open(f"{base}/{D}/{fn}")); s[pm] = 0; Image.fromarray(s).save(f"{base}/{D}/{fn}", optimize=True)
-    m["parcels"] = dict(source=B, tax_year=2026, counties=stats, cells_newly_masked=newly,
-                        skipped_big=skipped[:50], rule="private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors")
+    m["parcels"] = dict(source=B, tax_year=2026, counties=stats, cells_newly_masked=newly, top_private_owners_by_cells=sorted(((k, round(v)) for k, v in own_ct.items()), key=lambda t: -t[1])[:15],
+                        skipped_big=sorted(skipped, key=lambda s: -s[2])[:50], rule="private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings")
     json.dump(m, open(f"{base}/{D}/meta.json","w"), indent=1)
     print(D, "newly masked cells", newly, stats, flush=True)
 if __name__ == "__main__":

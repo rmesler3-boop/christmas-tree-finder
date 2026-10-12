@@ -100,21 +100,83 @@
    },
    "Grant": {
     "parcels": 38193,
-    "private": 33720,
-    "federal": 130,
+    "private": 33688,
+    "federal": 162,
     "no_owner": 4343,
     "big_skipped": 0
    },
    "Sierra": {
     "parcels": 126,
-    "private": 117,
-    "federal": 3,
+    "private": 113,
+    "federal": 7,
     "no_owner": 6,
     "big_skipped": 0
    }
   },
-  "cells_newly_masked": 2208,
+  "cells_newly_masked": 2188,
+  "top_private_owners_by_cells": [
+   [
+    "Chino Mines Company",
+    438387
+   ],
+   [
+    "Lt Ranch Llc",
+    214890
+   ],
+   [
+    "Pacific Western Land Company",
+    208234
+   ],
+   [
+    "A T Cross Cattle Co Inc",
+    111113
+   ],
+   [
+    "Ogilvie David W Jr Ogilvie Tamara A",
+    98285
+   ],
+   [
+    "H & B Properties Inc",
+    94463
+   ],
+   [
+    "Ladder Ranch L P",
+    83170
+   ],
+   [
+    "Tyrone Mining Llc",
+    77531
+   ],
+   [
+    "Freeport Mcmoran Chino Mines Company",
+    66157
+   ],
+   [
+    "Mccauley Tom & Son Inc",
+    53579
+   ],
+   [
+    "Z & T Cattle Company Llc",
+    51421
+   ],
+   [
+    "Wood Cattle Company Llc",
+    47778
+   ],
+   [
+    "N Cross Llc",
+    37849
+   ],
+   [
+    "Pacific Western Land Co",
+    37837
+   ],
+   [
+    "Snure Brothers Properties Ii Llc",
+    33166
+   ]
+  ],
   "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

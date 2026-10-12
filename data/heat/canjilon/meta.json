@@ -93,14 +93,117 @@
   "counties": {
    "Rio Arriba": {
     "parcels": 1401,
-    "private": 1364,
+    "private": 1356,
     "federal": 31,
     "no_owner": 6,
-    "big_skipped": 0
+    "big_skipped": 8
    }
   },
-  "cells_newly_masked": 2786,
-  "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "cells_newly_masked": 2274,
+  "top_private_owners_by_cells": [
+   [
+    "H C Ranch Llc",
+    49954
+   ],
+   [
+    "Parker, Maclaine Shirley Laura Lizer And Assoc.",
+    33739
+   ],
+   [
+    "Colina Ventosa, Ltd",
+    27033
+   ],
+   [
+    "Estancia Valley Cattle And Farms Llc",
+    22331
+   ],
+   [
+    "El Chamisal Ranch, L.P.",
+    21145
+   ],
+   [
+    "El Chamisal Ranch L.P.",
+    18993
+   ],
+   [
+    "7 Mares Ranch, Llc A New Mexico Limied Liability Com.",
+    15932
+   ],
+   [
+    "New Mexico State Land",
+    14749
+   ],
+   [
+    "Aguila Gritando Ranch Ltd",
+    14454
+   ],
+   [
+    "Berryman Ranch, Llc,",
+    13611
+   ],
+   [
+    "Berryman Ranch, Llc.",
+    10785
+   ],
+   [
+    "Hibner, Charles David Hibner, Verna A.",
+    10281
+   ],
+   [
+    "Pollister, Edward B",
+    9970
+   ],
+   [
+    "Baker, Janet M Et-Al",
+    9769
+   ],
+   [
+    "Eturriaga, Jose D",
+    9745
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Board Of Christian Education United Presbyterian Church",
+    1941,
+    215
+   ],
+   [
+    "Schlabach Ranch Llc",
+    262,
+    108
+   ],
+   [
+    "Board Of Christian Education United Presbyterian Church",
+    6409,
+    89
+   ],
+   [
+    "Saye Homestead",
+    517,
+    81
+   ],
+   [
+    "Kaspar, David Charles, Elias, Carli Jean",
+    730,
+    18
+   ],
+   [
+    "Rancho Santana, Llc",
+    264,
+    3
+   ],
+   [
+    "Montano, Juan R. Ana Padilla",
+    1845,
+    1
+   ],
+   [
+    "Jedburgh Ltd A Texas Limited Partnership",
+    301,
+    1
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

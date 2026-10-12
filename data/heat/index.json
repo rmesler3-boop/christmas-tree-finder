@@ -40,7 +40,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 9766040
+  "bytes": 9767688
  },
  {
   "id": "camino-real",
@@ -83,7 +83,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 5472072
+  "bytes": 5475338
  },
  {
   "id": "canjilon",
@@ -126,7 +126,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 2175001
+  "bytes": 2176733
  },
  {
   "id": "coyote",
@@ -169,7 +169,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 5919163
+  "bytes": 5920358
  },
  {
   "id": "cuba",
@@ -212,7 +212,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 6827718
+  "bytes": 6829173
  },
  {
   "id": "el-rito",
@@ -255,7 +255,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 4802275
+  "bytes": 4804166
  },
  {
   "id": "espanola",
@@ -298,7 +298,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 8341895
+  "bytes": 8344023
  },
  {
   "id": "glenwood",
@@ -341,7 +341,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 8151124
+  "bytes": 8152152
  },
  {
   "id": "guadalupe",
@@ -384,7 +384,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 2741724
+  "bytes": 2742972
  },
  {
   "id": "jemez",
@@ -427,7 +427,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 4958318
+  "bytes": 4959512
  },
  {
   "id": "jicarilla",
@@ -470,7 +470,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 2201280
+  "bytes": 2202817
  },
  {
   "id": "magdalena",
@@ -513,7 +513,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 10675501
+  "bytes": 10723624
  },
  {
   "id": "mount-taylor",
@@ -556,7 +556,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 8950803
+  "bytes": 8956560
  },
  {
   "id": "mountainair",
@@ -599,7 +599,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 4562909
+  "bytes": 4567615
  },
  {
   "id": "pecos-las-vegas",
@@ -642,7 +642,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 9520284
+  "bytes": 9524939
  },
  {
   "id": "quemado",
@@ -685,7 +685,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 8737298
+  "bytes": 8738178
  },
  {
   "id": "questa",
@@ -728,7 +728,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 4084969
+  "bytes": 4088118
  },
  {
   "id": "reserve",
@@ -771,7 +771,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 9941164
+  "bytes": 9942033
  },
  {
   "id": "sacramento",
@@ -816,7 +816,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 6800096
+  "bytes": 6806297
  },
  {
   "id": "sandia",
@@ -859,7 +859,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 1437765
+  "bytes": 1439076
  },
  {
   "id": "silver-city",
@@ -902,7 +902,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 7807756
+  "bytes": 7808715
  },
  {
   "id": "smokey-bear",
@@ -945,7 +945,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 5190930
+  "bytes": 5192409
  },
  {
   "id": "tres-piedras",
@@ -988,7 +988,7 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 7083382
+  "bytes": 7086282
  },
  {
   "id": "wilderness",
@@ -1031,6 +1031,6 @@
    "s_spruce.png",
    "vec.json"
   ],
-  "bytes": 6934247
+  "bytes": 6935189
  }
 ]

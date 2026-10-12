@@ -100,74 +100,174 @@
    },
    "Sierra": {
     "parcels": 132,
-    "private": 121,
-    "federal": 6,
+    "private": 114,
+    "federal": 11,
     "no_owner": 5,
-    "big_skipped": 0
+    "big_skipped": 2
    },
    "Socorro": {
     "parcels": 7807,
-    "private": 6302,
-    "federal": 1243,
+    "private": 5679,
+    "federal": 1863,
     "no_owner": 249,
-    "big_skipped": 13
+    "big_skipped": 16
    }
   },
-  "cells_newly_masked": 94920,
-  "skipped_big": [
+  "cells_newly_masked": 12509,
+  "top_private_owners_by_cells": [
    [
-    "State Of New Mexico",
-    2998
+    "N M Ranch Properties Inc",
+    803713
    ],
    [
-    "State Of New Mexico",
-    2944
+    "Double H Holdings Llc",
+    312351
    ],
    [
-    "State Of New Mexico",
-    2999
+    "Pueblo Of Acoma",
+    172720
    ],
    [
-    "State Of New Mexico",
-    2995
+    "Nm Ranch Properties Inc",
+    157713
    ],
    [
-    "State Of New Mexico",
-    3052
+    "Montosa Ranch Ltd Partnership",
+    136622
    ],
    [
-    "State Of New Mexico",
-    3334
+    "Z & T Cattle Co Llc",
+    95950
    ],
    [
-    "State Of New Mexcio",
-    2999
+    "Cat Mountain Holdings Llc",
+    89251
    ],
    [
-    "State Of New Mexico",
-    3037
+    "Nunn, Joe Bill",
+    75643
    ],
    [
-    "Us Fish & Wildlife",
-    2997
+    "Wahoo Ranch Llc",
+    70752
    ],
    [
-    "Us Fish & Wildlife",
-    2970
+    "Coil Family, Llc",
+    49390
    ],
    [
-    "State Of New Mexico",
-    2972
+    "Z & T Cattle Company Llc",
+    46990
    ],
    [
-    "State Of New Mexcio",
-    2999
+    "Freeman Russell",
+    40092
    ],
    [
-    "State Of New Mexico",
-    3078
+    "Jdl Family Partnership Ltd & Mallard Land Development Llc",
+    39107
+   ],
+   [
+    "Morrow Ranch Llc",
+    34160
+   ],
+   [
+    "Bruton Ranch Llc",
+    33505
    ]
   ],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "skipped_big": [
+   [
+    "Double H Holdings Llc",
+    300,
+    215
+   ],
+   [
+    "Double H Holdings Llc",
+    264,
+    159
+   ],
+   [
+    "Montosa Ranch Ltd Partnership",
+    268,
+    83
+   ],
+   [
+    "Double H Holdings Llc",
+    265,
+    83
+   ],
+   [
+    "Double H Holdings Llc",
+    265,
+    80
+   ],
+   [
+    "Double H Holdings Llc",
+    261,
+    78
+   ],
+   [
+    "Smithco Tucker Ranch Llc",
+    978,
+    68
+   ],
+   [
+    "Cat Mountain Holdings Llc",
+    263,
+    55
+   ],
+   [
+    "Sullivan Darryl V",
+    1011,
+    52
+   ],
+   [
+    "Smithco Tucker Ranch Llc",
+    262,
+    39
+   ],
+   [
+    "Raven Living Trust",
+    264,
+    27
+   ],
+   [
+    "Sifuentes Mark & Etal",
+    260,
+    27
+   ],
+   [
+    "Double H Holdings Llc",
+    261,
+    26
+   ],
+   [
+    "Smithco Tucker Ranch Llc",
+    346,
+    6
+   ],
+   [
+    "Smithco New Mexico Ranches Llc",
+    1660,
+    3
+   ],
+   [
+    "Pueblo Of Acoma",
+    260,
+    2
+   ],
+   [
+    "Jdl Family Partnership Ltd & Mallard Land Development Llc",
+    261,
+    1
+   ],
+   [
+    "Cat Mountain Holdings Llc",
+    262,
+    1
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

@@ -100,28 +100,121 @@
    },
    "Grant": {
     "parcels": 30414,
-    "private": 27707,
-    "federal": 134,
+    "private": 27695,
+    "federal": 146,
     "no_owner": 2573,
     "big_skipped": 0
    },
    "Sierra": {
     "parcels": 604,
-    "private": 571,
-    "federal": 14,
+    "private": 551,
+    "federal": 28,
     "no_owner": 19,
-    "big_skipped": 0
+    "big_skipped": 6
    },
    "Socorro": {
     "parcels": 152,
-    "private": 122,
-    "federal": 17,
+    "private": 119,
+    "federal": 20,
     "no_owner": 13,
     "big_skipped": 0
    }
   },
-  "cells_newly_masked": 3621,
-  "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "cells_newly_masked": 2525,
+  "top_private_owners_by_cells": [
+   [
+    "Ladder Ranch L P",
+    361137
+   ],
+   [
+    "Chino Mines Company",
+    143314
+   ],
+   [
+    "Wahoo Ranch Llc",
+    68388
+   ],
+   [
+    "Freeport Mcmoran Chino Mines Company",
+    57865
+   ],
+   [
+    "Z & T Cattle Company Llc",
+    49093
+   ],
+   [
+    "Z & T Cattle Co Llc",
+    42525
+   ],
+   [
+    "Hillsboro Pitchfork Ranch Llc | Attn Cunningham Robert H",
+    36306
+   ],
+   [
+    "Morrow Ranch Llc",
+    34440
+   ],
+   [
+    "Berrenda Holdings Llc",
+    33423
+   ],
+   [
+    "H & B Properties Inc",
+    29980
+   ],
+   [
+    "Salopek David Farms Ltd Co",
+    24433
+   ],
+   [
+    "Freeport-Mcmoran Chino Mines Company",
+    24071
+   ],
+   [
+    "Drw Family Limited Partnership",
+    24024
+   ],
+   [
+    "Roberts Trevor G & | Roberts Gerald M",
+    21389
+   ],
+   [
+    "Clay Wallace & Anna Lee Henderson Revocable Trust",
+    16401
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Chandler Irrevocable Trust | Chandler Clint Trustee",
+    383,
+    339
+   ],
+   [
+    "Salopek David P & Marion H",
+    6090,
+    93
+   ],
+   [
+    "Roberts Trevor G & | Roberts Gerald M",
+    3612,
+    89
+   ],
+   [
+    "Freeman Russell",
+    3638,
+    87
+   ],
+   [
+    "Ladder Ranch L P",
+    7445,
+    66
+   ],
+   [
+    "Salopek David & Marion",
+    1181,
+    54
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

@@ -93,21 +93,154 @@
   "counties": {
    "Rio Arriba": {
     "parcels": 5808,
-    "private": 5654,
+    "private": 5641,
     "federal": 33,
     "no_owner": 121,
-    "big_skipped": 0
+    "big_skipped": 13
    },
    "Taos": {
     "parcels": 33804,
-    "private": 32357,
-    "federal": 29,
+    "private": 32353,
+    "federal": 32,
     "no_owner": 1418,
-    "big_skipped": 0
+    "big_skipped": 1
    }
   },
-  "cells_newly_masked": 9226,
-  "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "cells_newly_masked": 7853,
+  "top_private_owners_by_cells": [
+   [
+    "Jicarilla Apache Tribe",
+    142611
+   ],
+   [
+    "Board Of Christian Education United Presbyterian Church",
+    92653
+   ],
+   [
+    "Eastside Group Ltd",
+    37167
+   ],
+   [
+    "Parker, Maclaine Shirley Laura Lizer And Assoc.",
+    33693
+   ],
+   [
+    "Rare Earth New Mexico",
+    28939
+   ],
+   [
+    "Rancho Del Oso Pardo Inc",
+    27488
+   ],
+   [
+    "Colina Ventosa, Ltd",
+    26996
+   ],
+   [
+    "Montano, Juan R. Ana Padilla",
+    20475
+   ],
+   [
+    "Cb Foundation",
+    16355
+   ],
+   [
+    "Scott, N Russell Trustee Sophia L Richards Revocable Living Trust",
+    15578
+   ],
+   [
+    "Racca Ronald, Et-Al",
+    14919
+   ],
+   [
+    "Brazos Conservation Company Llc",
+    14860
+   ],
+   [
+    "Alfreton Llc Et-Al | Miller, Constance & David Vaughn",
+    13489
+   ],
+   [
+    "Brazos Land & Cattle Co. Attention: Windham Bill",
+    13022
+   ],
+   [
+    "Great Southwestern Land Co Inc | 1St National Bank Building East  %",
+    12794
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Wolf Creek Ranch, Llc",
+    1483,
+    594
+   ],
+   [
+    "Shawcroft, Robert William Et-Al | Hixenbaugh, Rose Marie Shawcroft",
+    1410,
+    156
+   ],
+   [
+    "Aussie Austere Trust",
+    269,
+    108
+   ],
+   [
+    "Diamond, S L",
+    288,
+    107
+   ],
+   [
+    "Rivera, Gloria A. & Rivera, Carlos E.",
+    282,
+    82
+   ],
+   [
+    "West Fork Brazos Inc, A Co Corp.",
+    400,
+    61
+   ],
+   [
+    "H C Ranch Llc",
+    4490,
+    56
+   ],
+   [
+    "Barela, Virgil",
+    261,
+    55
+   ],
+   [
+    "Abv Ranch",
+    475,
+    47
+   ],
+   [
+    "Lazy Dog Land & Cattle Co.",
+    706,
+    36
+   ],
+   [
+    "Sfr Investments Llc",
+    1071,
+    32
+   ],
+   [
+    "Valdez, Ernest J & Valdez, Doloretta M. Revocable Living Trust",
+    666,
+    28
+   ],
+   [
+    "Moya Living Trust Moya, Eugene A & Janet L Zamora M",
+    629,
+    23
+   ],
+   [
+    "Jicarilla Apache Tribe",
+    1684,
+    3
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

@@ -100,24 +100,24 @@
    },
    "Cibola": {
     "parcels": 19567,
-    "private": 18895,
-    "federal": 463,
+    "private": 18804,
+    "federal": 534,
     "no_owner": 205,
-    "big_skipped": 4
+    "big_skipped": 24
    },
    "McKinley": {
     "parcels": 3541,
-    "private": 3408,
-    "federal": 49,
+    "private": 3392,
+    "federal": 55,
     "no_owner": 84,
-    "big_skipped": 0
+    "big_skipped": 10
    },
    "Sandoval": {
     "parcels": 124,
-    "private": 107,
+    "private": 106,
     "federal": 1,
     "no_owner": 16,
-    "big_skipped": 0
+    "big_skipped": 1
    },
    "Valencia": {
     "parcels": 146,
@@ -127,25 +127,246 @@
     "big_skipped": 0
    }
   },
-  "cells_newly_masked": 6406,
+  "cells_newly_masked": 3013,
+  "top_private_owners_by_cells": [
+   [
+    "Laguna Indian Reservation",
+    721942
+   ],
+   [
+    "Pueblo Of Acoma",
+    456278
+   ],
+   [
+    "Laguna Indian Reservation,",
+    405979
+   ],
+   [
+    "Zuni Indian Reservation",
+    381840
+   ],
+   [
+    "Lupo Lands Llc",
+    249394
+   ],
+   [
+    "Fernandez Company, Ltd.",
+    219313
+   ],
+   [
+    "Navajo Nation/Off Land Adm, %Title Section",
+    193419
+   ],
+   [
+    "New Mexico State Game Commission",
+    164131
+   ],
+   [
+    "Cebolleta Land Grant",
+    119821
+   ],
+   [
+    "Navajo Nation, P.O. Box 2249",
+    97460
+   ],
+   [
+    "The Navajo Nation",
+    80112
+   ],
+   [
+    "Pueblo Of Acoma,",
+    76765
+   ],
+   [
+    "Fernandez Co. Limited, Lee Ranch",
+    72856
+   ],
+   [
+    "The Pueblo Acoma,",
+    69083
+   ],
+   [
+    "Cubero Land Grant, Board Of Trustees",
+    58834
+   ]
+  ],
   "skipped_big": [
    [
-    "U.S. Dept. Of Agric.",
-    5516
+    "U.S.G. Natl. Park Service",
+    9173,
+    102049
    ],
    [
     "U.S.G. Natl. Park Service",
-    102154
+    4601,
+    50814
    ],
    [
     "American,Tower Corp.",
-    5840
+    519,
+    5650
    ],
    [
-    "U.S.G. Natl. Park Service",
-    51344
+    "U.S. Dept. Of Agric.",
+    478,
+    5185
+   ],
+   [
+    "Fernandez Company, Ltd.",
+    342,
+    1089
+   ],
+   [
+    "Navajo Nation/Off Land Adm, %Title Section",
+    582,
+    342
+   ],
+   [
+    "Fernandez Company, Ltd.",
+    12267,
+    149
+   ],
+   [
+    "Lucero Brothers Ranch, Llc",
+    260,
+    132
+   ],
+   [
+    "Green Troy Richard",
+    886,
+    107
+   ],
+   [
+    "Fernandez Wind Energy, Llc.",
+    18630,
+    95
+   ],
+   [
+    "Fernandez Company, Ltd. & Lee, Floyd",
+    10222,
+    91
+   ],
+   [
+    "Fernandez Company, Ltd.",
+    1366,
+    74
+   ],
+   [
+    "Elkins, Jerry & Luann",
+    292,
+    71
+   ],
+   [
+    "Bond, Adrian R., Etal",
+    262,
+    58
+   ],
+   [
+    "United, States Of America For Pueblo Land Acquisition",
+    2816,
+    57
+   ],
+   [
+    "Elkins, David P. Revocable Trust",
+    538,
+    56
+   ],
+   [
+    "Richardson Farms Outfitters Inc | Malenich Investments Llc",
+    1472,
+    54
+   ],
+   [
+    "Fernandez Co. Limited, Lee Ranch",
+    533,
+    49
+   ],
+   [
+    "Navajo Nation/Off Land Adm, %Title Section",
+    275,
+    48
+   ],
+   [
+    "Baca Reida K | Elkins Donny J",
+    391,
+    43
+   ],
+   [
+    "Rico Motor Co.",
+    1276,
+    42
+   ],
+   [
+    "Richardson Farms Outfitters Inc | Malenich Investments Llc",
+    279,
+    35
+   ],
+   [
+    "Loma Montosa Ranch Llc",
+    4182,
+    28
+   ],
+   [
+    "Fernandez Co. Limited, Lee Ranch",
+    1617,
+    28
+   ],
+   [
+    "Mirabal Family Trust",
+    261,
+    27
+   ],
+   [
+    "New Mexico State Game Commission",
+    261,
+    27
+   ],
+   [
+    "Laguna Indian Reservation",
+    2406,
+    25
+   ],
+   [
+    "Richardson Farms Outfitters Inc | Malenich Investments Llc",
+    365,
+    24
+   ],
+   [
+    "Section 27, Llc.",
+    448,
+    21
+   ],
+   [
+    "Navajo Nation/Off Land Adm, %Title Section",
+    578,
+    20
+   ],
+   [
+    "Elkins, Roy Mark & Roxanne T Elkins Revocable Trust",
+    695,
+    14
+   ],
+   [
+    "Fernandez Co. Limited, Lee Ranch",
+    371,
+    7
+   ],
+   [
+    "Mirabal Family Trust",
+    263,
+    1
+   ],
+   [
+    "Mirabal,Ella G.",
+    268,
+    1
+   ],
+   [
+    "Mirabal Family Trust",
+    264,
+    1
    ]
   ],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

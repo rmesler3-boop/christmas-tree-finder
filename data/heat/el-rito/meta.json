@@ -93,21 +93,109 @@
   "counties": {
    "Rio Arriba": {
     "parcels": 4628,
-    "private": 4490,
+    "private": 4485,
     "federal": 18,
     "no_owner": 120,
-    "big_skipped": 0
+    "big_skipped": 5
    },
    "Taos": {
     "parcels": 11563,
-    "private": 11011,
-    "federal": 19,
+    "private": 11009,
+    "federal": 21,
     "no_owner": 533,
     "big_skipped": 0
    }
   },
-  "cells_newly_masked": 4858,
-  "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "cells_newly_masked": 4179,
+  "top_private_owners_by_cells": [
+   [
+    "Abiquiu Coop. Livestock Assoc.",
+    70626
+   ],
+   [
+    "Board Of Christian Education United Presbyterian Church",
+    21599
+   ],
+   [
+    "Montano, Juan R. Ana Padilla",
+    20537
+   ],
+   [
+    "Scott, N Russell Trustee Sophia L Richards Revocable Living Trust",
+    12955
+   ],
+   [
+    "Abiquiu Dam & Reservoir",
+    10531
+   ],
+   [
+    "Johnson, Vaughn A. Johnson, Karen",
+    9932
+   ],
+   [
+    "Kaspar, David Charles, Elias, Carli Jean",
+    8120
+   ],
+   [
+    "Red Rabbit Ranch",
+    8059
+   ],
+   [
+    "Diamond, S L",
+    7536
+   ],
+   [
+    "Great Southwestern Land Co Inc | 1St National Bank Building East  %",
+    4942
+   ],
+   [
+    "Clark, Peter John & | Clark, Tina Marie Sloan",
+    4071
+   ],
+   [
+    "Smith, Ronald Raymond",
+    3832
+   ],
+   [
+    "Palovista Company",
+    3697
+   ],
+   [
+    "Ojo Caliente Mineral Springs",
+    3612
+   ],
+   [
+    "Smith, Ronald Raymond Living Trust",
+    3549
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Colina Ventosa, Ltd",
+    2437,
+    537
+   ],
+   [
+    "H C Ranch Llc",
+    4503,
+    92
+   ],
+   [
+    "Parker, Maclaine Shirley Laura Lizer And Assoc.",
+    3041,
+    42
+   ],
+   [
+    "Dar Al-Islam",
+    546,
+    14
+   ],
+   [
+    "Aussie Austere Trust",
+    270,
+    1
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

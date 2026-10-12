@@ -100,8 +100,8 @@
    },
    "Grant": {
     "parcels": 4653,
-    "private": 2556,
-    "federal": 57,
+    "private": 2553,
+    "federal": 60,
     "no_owner": 2040,
     "big_skipped": 0
    },
@@ -114,7 +114,69 @@
    }
   },
   "cells_newly_masked": 1352,
+  "top_private_owners_by_cells": [
+   [
+    "Pacific Western Land Company",
+    95032
+   ],
+   [
+    "Buckhorn Ranch Llc",
+    41211
+   ],
+   [
+    "Mccauley Tom & Son Inc",
+    32627
+   ],
+   [
+    "Z Bar Ranch Llc",
+    32604
+   ],
+   [
+    "Z & T Cattle Company Llc",
+    31920
+   ],
+   [
+    "New Mexico Game Commission",
+    26172
+   ],
+   [
+    "Hooker David E & Paula",
+    18414
+   ],
+   [
+    "916 Ranch Trust",
+    17224
+   ],
+   [
+    "Freeman Raymond Chad",
+    13963
+   ],
+   [
+    "N Cross Llc",
+    12811
+   ],
+   [
+    "Woodrow Family Revocable Trust",
+    10716
+   ],
+   [
+    "Franks Ranch Inc U/C",
+    8784
+   ],
+   [
+    "Brown Kenneth Wayne & Brown Linda S",
+    8704
+   ],
+   [
+    "Dominguez Fred L Dominguez Dolores R",
+    8115
+   ],
+   [
+    "Dickerson Wayne E",
+    8036
+   ]
+  ],
   "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

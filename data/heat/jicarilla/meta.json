@@ -93,14 +93,97 @@
   "counties": {
    "Rio Arriba": {
     "parcels": 195,
-    "private": 167,
-    "federal": 17,
+    "private": 161,
+    "federal": 19,
     "no_owner": 11,
-    "big_skipped": 0
+    "big_skipped": 4
    }
   },
-  "cells_newly_masked": 2727,
-  "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "cells_newly_masked": 2318,
+  "top_private_owners_by_cells": [
+   [
+    "New Mexico State Land",
+    24632
+   ],
+   [
+    "Public Domain",
+    24449
+   ],
+   [
+    "4P Land Llc",
+    16519
+   ],
+   [
+    "Candelaria, Nick",
+    13561
+   ],
+   [
+    "Bolack, Tommy",
+    12639
+   ],
+   [
+    "Gomez Y Gomez Inc. Gomez Ranch",
+    6121
+   ],
+   [
+    "Espinosa, Joseph,Dennis,George,Arm Ando",
+    5815
+   ],
+   [
+    "Gomez, Frank O Gomez, Gene",
+    5802
+   ],
+   [
+    "Montoya Trust D.P. & C.C.",
+    5423
+   ],
+   [
+    "Smith Family Llc, A New Mexico Limited Liability Company",
+    5195
+   ],
+   [
+    "Gomez Family Property, Llc A New Mexico Limited Liability Company",
+    4936
+   ],
+   [
+    "Talamante, Juan T. Talamante, Erdine",
+    4167
+   ],
+   [
+    "4J Ranch, Llc",
+    3703
+   ],
+   [
+    "Montoya Trust C.C. & D.P.",
+    3345
+   ],
+   [
+    "Jicarilla Apache Energy Corporation",
+    3279
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Public Domain",
+    5366,
+    206
+   ],
+   [
+    "Public Domain",
+    2510,
+    160
+   ],
+   [
+    "Espinosa, Joseph,Dennis,George,Arm Ando",
+    385,
+    41
+   ],
+   [
+    "Arnold, Richard Et-Al",
+    356,
+    2
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

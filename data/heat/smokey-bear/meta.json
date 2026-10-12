@@ -93,10 +93,10 @@
   "counties": {
    "Lincoln": {
     "parcels": 32141,
-    "private": 25891,
-    "federal": 31,
+    "private": 25873,
+    "federal": 46,
     "no_owner": 6219,
-    "big_skipped": 0
+    "big_skipped": 3
    },
    "Otero": {
     "parcels": 9,
@@ -106,8 +106,86 @@
     "big_skipped": 0
    }
   },
-  "cells_newly_masked": 4343,
-  "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "cells_newly_masked": 4191,
+  "top_private_owners_by_cells": [
+   [
+    "Nogal Orb, Llc | A Nm Ltd Liab Co",
+    39580
+   ],
+   [
+    "Dcc West Llc | A New Mexico Ltd Liability Company",
+    32371
+   ],
+   [
+    "Gipson Land Co, Llc",
+    15205
+   ],
+   [
+    "Dinwiddie, Tommy; Trustee | Dinwiddie, Melanie; Trustee",
+    14377
+   ],
+   [
+    "Block Ranches, Llc",
+    12139
+   ],
+   [
+    "Gg Armstrong & Son, Llc",
+    11838
+   ],
+   [
+    "Eldridge Ranch, Llc | A New Mexico Ltd Liability Company",
+    10556
+   ],
+   [
+    "Edgar Ranches, Ltd",
+    8958
+   ],
+   [
+    "Ferguson Trust | Ferguson, Wallace H & Anne",
+    8855
+   ],
+   [
+    "Kostohryz 8Th | Avenue Family Ltd Partnership",
+    7824
+   ],
+   [
+    "Mcdonald, Henry (Dec'D)",
+    7483
+   ],
+   [
+    "Hightower Land & Cattle, Co",
+    7111
+   ],
+   [
+    "Maley, David | La Verne",
+    7030
+   ],
+   [
+    "Mcdonald, Henry E (Dec'D)",
+    6189
+   ],
+   [
+    "Roper, David | Barbara A",
+    6089
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Chisholm Exploration, Inc | A Tx Corp",
+    516,
+    82
+   ],
+   [
+    "Lubbock Commercial Buildings, Inc | Texas Corporation",
+    369,
+    47
+   ],
+   [
+    "Burton Ranch Investments, Lp | Goodloe, Floyd H",
+    266,
+    27
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

@@ -104,10 +104,10 @@
   "counties": {
    "Chaves": {
     "parcels": 77,
-    "private": 69,
+    "private": 64,
     "federal": 5,
     "no_owner": 3,
-    "big_skipped": 0
+    "big_skipped": 5
    },
    "Lincoln": {
     "parcels": 2,
@@ -118,14 +118,157 @@
    },
    "Otero": {
     "parcels": 24402,
-    "private": 23745,
-    "federal": 232,
+    "private": 23691,
+    "federal": 275,
     "no_owner": 425,
-    "big_skipped": 0
+    "big_skipped": 11
    }
   },
-  "cells_newly_masked": 12089,
-  "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "cells_newly_masked": 6994,
+  "top_private_owners_by_cells": [
+   [
+    "New Mexico,State Of",
+    61213
+   ],
+   [
+    "Cross D Ranch Llc",
+    44430
+   ],
+   [
+    "Leonard Muleshoe Ranch Llc | New Mexico Limited Liability Co",
+    39779
+   ],
+   [
+    "Mccasland Pinon Limited Partnership I",
+    30290
+   ],
+   [
+    "Van Cleve Family Trust ; Bernice Kniepkamp Trustee",
+    30087
+   ],
+   [
+    "Church Steeple Land & Cattle Co",
+    29112
+   ],
+   [
+    "Kniepkamp, Bernice",
+    22478
+   ],
+   [
+    "Henderson,Forrest",
+    21298
+   ],
+   [
+    "Henderson,Hunter",
+    21212
+   ],
+   [
+    "Elk Cattle Company Llc",
+    21034
+   ],
+   [
+    "Mulcock, Charles W; Mulcock, Marcetta C",
+    20817
+   ],
+   [
+    "L J Burro Lake Ranch Llc",
+    19074
+   ],
+   [
+    "Jd Bell Family Llc",
+    18425
+   ],
+   [
+    "Runyan,J B Inc",
+    18357
+   ],
+   [
+    "Fairchild, Sam & Marilyn",
+    15433
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Tall Cactus Llc",
+    587,
+    237
+   ],
+   [
+    "Coleman Ranches Ltd",
+    4195,
+    232
+   ],
+   [
+    "Bowen, James W & Jordan R",
+    468,
+    109
+   ],
+   [
+    "Cooper Brothers Land Llc ; C/O John W Cooper",
+    681,
+    100
+   ],
+   [
+    "Cross D Ranch Llc",
+    279,
+    65
+   ],
+   [
+    "Cross D Ranch Llc",
+    358,
+    53
+   ],
+   [
+    "Cooper Bros Land Llc",
+    796,
+    53
+   ],
+   [
+    "Cross D Ranch Operating, Llc",
+    321,
+    52
+   ],
+   [
+    "Elk Cattle Company Llc",
+    482,
+    46
+   ],
+   [
+    "New Mexico,State Of",
+    1691,
+    35
+   ],
+   [
+    "Cooper Brothers Land Llc ; C/O John W Cooper",
+    579,
+    34
+   ],
+   [
+    "Cooper Bros Land Llc",
+    758,
+    29
+   ],
+   [
+    "Kimia Limited Co",
+    534,
+    27
+   ],
+   [
+    "Cross D Ranch Llc",
+    865,
+    15
+   ],
+   [
+    "New Mexico,State Of",
+    3021,
+    9
+   ],
+   [
+    "V-K Cattle Co",
+    3056,
+    1
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

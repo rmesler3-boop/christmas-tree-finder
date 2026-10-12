@@ -100,14 +100,87 @@
    },
    "Grant": {
     "parcels": 3419,
-    "private": 2380,
+    "private": 2378,
     "federal": 3,
     "no_owner": 1036,
-    "big_skipped": 0
+    "big_skipped": 2
    }
   },
-  "cells_newly_masked": 878,
-  "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "cells_newly_masked": 825,
+  "top_private_owners_by_cells": [
+   [
+    "Blue Creek Partners Lllp",
+    128261
+   ],
+   [
+    "Moon Ranch Lllp Et Al",
+    125285
+   ],
+   [
+    "Y 6 Ranch Inc",
+    95906
+   ],
+   [
+    "Buckhorn Ranch Llc",
+    79468
+   ],
+   [
+    "N Cross Llc",
+    55002
+   ],
+   [
+    "Haas Timm J & Haas Jennifer",
+    37772
+   ],
+   [
+    "Sawmill Creek Llc",
+    33042
+   ],
+   [
+    "Freeman Raymond Chad",
+    32965
+   ],
+   [
+    "Z Bar Ranch Llc",
+    32554
+   ],
+   [
+    "Hooker Betty J & Hooker Jeffery Allan",
+    28804
+   ],
+   [
+    "Pacific Western Land Company",
+    28533
+   ],
+   [
+    "New Mexico Game Commission",
+    22492
+   ],
+   [
+    "Mckeen R & D Family Trust",
+    21683
+   ],
+   [
+    "Hooker David E & Paula",
+    18386
+   ],
+   [
+    "916 Ranch Trust",
+    17198
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Moon Ranch Lllp Et Al",
+    260,
+    53
+   ],
+   [
+    "Moon Ranch Lllp Et Al",
+    260,
+    1
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

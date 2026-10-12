@@ -93,10 +93,10 @@
   "counties": {
    "Bernalillo": {
     "parcels": 452,
-    "private": 449,
-    "federal": 1,
+    "private": 447,
+    "federal": 2,
     "no_owner": 2,
-    "big_skipped": 0
+    "big_skipped": 1
    },
    "Lincoln": {
     "parcels": 685,
@@ -107,45 +107,281 @@
    },
    "Socorro": {
     "parcels": 826,
-    "private": 737,
-    "federal": 82,
+    "private": 510,
+    "federal": 309,
     "no_owner": 7,
     "big_skipped": 0
    },
    "Torrance": {
     "parcels": 12743,
-    "private": 12545,
-    "federal": 25,
+    "private": 12508,
+    "federal": 32,
     "no_owner": 169,
-    "big_skipped": 4
+    "big_skipped": 34
    },
    "Valencia": {
     "parcels": 18861,
-    "private": 18646,
-    "federal": 6,
+    "private": 18640,
+    "federal": 9,
     "no_owner": 209,
-    "big_skipped": 0
+    "big_skipped": 3
    }
   },
-  "cells_newly_masked": 11008,
-  "skipped_big": [
+  "cells_newly_masked": 7822,
+  "top_private_owners_by_cells": [
    [
-    "Walker Louella T",
-    236661
+    "Leal Bennie P",
+    477832
    ],
    [
-    "Waste Management Of Nm",
-    4104
+    "Wrye William H Jr & Joy K Rev Trust",
+    227409
+   ],
+   [
+    "Kaywal Inc",
+    185211
    ],
    [
     "Weeks Logan",
-    270380
+    146422
+   ],
+   [
+    "Big Four Ranches Llc",
+    135415
+   ],
+   [
+    "Isleta Indian Reservation",
+    130219
+   ],
+   [
+    "Cibola Llc",
+    111088
+   ],
+   [
+    "Harvey-Encino Ranch Llc",
+    108596
+   ],
+   [
+    "Harral Leland C & Mary Susan Trust",
+    105485
+   ],
+   [
+    "Goemmer Land & Livestock Co Llc",
+    103653
+   ],
+   [
+    "Double Arrow Llc",
+    86183
+   ],
+   [
+    "Waste Management Of Nm",
+    76470
+   ],
+   [
+    "3W Wrye Ranch Llc",
+    73739
+   ],
+   [
+    "Uncle Bill`S Farm & Ranch Llc",
+    72863
+   ],
+   [
+    "Southwest Grazing Inc. ; Monte Prieto Ranch",
+    67113
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Weeks Logan",
+    24417,
+    266336
+   ],
+   [
+    "Walker Louella T",
+    21507,
+    167504
    ],
    [
     "Leal Bennie P",
-    207422
+    19208,
+    119879
+   ],
+   [
+    "Waste Management Of Nm",
+    358,
+    4098
+   ],
+   [
+    "Vega Gary A | Ellis Mathew L & Kaitlyn M",
+    737,
+    378
+   ],
+   [
+    "Tierra Grande Improvement Assoc",
+    4384,
+    352
+   ],
+   [
+    "Goemmer Land & Livestock Co Llc",
+    3090,
+    276
+   ],
+   [
+    "Goemmer Land & Livestock Co Llc",
+    1423,
+    246
+   ],
+   [
+    "Autrey Family Revoc Trust Uta",
+    815,
+    180
+   ],
+   [
+    "Cook George & Lyndee",
+    1238,
+    175
+   ],
+   [
+    "Dubois Ranch Llc",
+    660,
+    162
+   ],
+   [
+    "Taul Living Trust",
+    1055,
+    142
+   ],
+   [
+    "Tierra Grande Improvement Assn",
+    539,
+    128
+   ],
+   [
+    "Kane Family Trust Timothy & Ethel Kane Trustees",
+    404,
+    123
+   ],
+   [
+    "La Merced De Chilili",
+    533,
+    116
+   ],
+   [
+    "Rose Jim & Michele Living Trust",
+    1248,
+    111
+   ],
+   [
+    "Goemmer Land & Livestock Co Llc",
+    1201,
+    100
+   ],
+   [
+    "Cibola Llc",
+    6674,
+    90
+   ],
+   [
+    "Perkins Rand | Perkins Thomas R",
+    466,
+    82
+   ],
+   [
+    "Mckinley Welda Mark & Melinda",
+    311,
+    80
+   ],
+   [
+    "Holleyman Family Ranch Llc",
+    1801,
+    72
+   ],
+   [
+    "Humphries Leroy J",
+    1575,
+    69
+   ],
+   [
+    "Riley Patrick & Erin",
+    335,
+    66
+   ],
+   [
+    "Taul Living Trust",
+    924,
+    62
+   ],
+   [
+    "Brown Hazel",
+    655,
+    57
+   ],
+   [
+    "Paintin Kenneth J & Pearly L",
+    521,
+    55
+   ],
+   [
+    "Dubois Ranch Llc",
+    388,
+    54
+   ],
+   [
+    "Brown Kenneth",
+    523,
+    54
+   ],
+   [
+    "Bishop Estates Ranches Llc",
+    387,
+    41
+   ],
+   [
+    "Red Stick Land Holdings Llc",
+    1449,
+    28
+   ],
+   [
+    "Shaw Family Trust",
+    1307,
+    28
+   ],
+   [
+    "Torres Ramon & Torres Anna Lee & Rojas Stephen Paul",
+    629,
+    26
+   ],
+   [
+    "Rose Jim & Michele Living Trust",
+    911,
+    13
+   ],
+   [
+    "Chavez Jesus R",
+    868,
+    11
+   ],
+   [
+    "Muncy Dillon T | Muncy Marissa L",
+    396,
+    1
+   ],
+   [
+    "Black Walnut Ranch, Inc",
+    261,
+    1
+   ],
+   [
+    "Kizer Shannon",
+    1847,
+    1
+   ],
+   [
+    "Kizer Shannon",
+    5010,
+    1
    ]
   ],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }

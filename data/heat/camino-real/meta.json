@@ -93,24 +93,24 @@
   "counties": {
    "Colfax": {
     "parcels": 4479,
-    "private": 2618,
-    "federal": 1,
+    "private": 2613,
+    "federal": 5,
     "no_owner": 1860,
-    "big_skipped": 0
+    "big_skipped": 1
    },
    "Mora": {
     "parcels": 2911,
-    "private": 2874,
-    "federal": 7,
+    "private": 2873,
+    "federal": 8,
     "no_owner": 30,
     "big_skipped": 0
    },
    "Rio Arriba": {
     "parcels": 2331,
-    "private": 2275,
-    "federal": 11,
+    "private": 2273,
+    "federal": 12,
     "no_owner": 45,
-    "big_skipped": 0
+    "big_skipped": 1
    },
    "Santa Fe": {
     "parcels": 47,
@@ -121,14 +121,92 @@
    },
    "Taos": {
     "parcels": 24218,
-    "private": 20602,
-    "federal": 26,
+    "private": 20597,
+    "federal": 30,
     "no_owner": 3590,
-    "big_skipped": 0
+    "big_skipped": 1
    }
   },
-  "cells_newly_masked": 4973,
-  "skipped_big": [],
-  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; private parcels >1 sq mi lying >50% on USFS-cuttable land skipped as likely geometry errors"
+  "cells_newly_masked": 3673,
+  "top_private_owners_by_cells": [
+   [
+    "Santo Domingo De Cundiyo Grant",
+    9048
+   ],
+   [
+    "Klauer Manufacturing Company",
+    7165
+   ],
+   [
+    "State Land",
+    5681
+   ],
+   [
+    "New Mexico State Park & Recreation | Comm",
+    4972
+   ],
+   [
+    "Nm Land Llc",
+    4585
+   ],
+   [
+    "Becker, Emilie & | Becker, Stephen L",
+    4321
+   ],
+   [
+    "U S Indian Service",
+    3656
+   ],
+   [
+    "Town Of Taos",
+    3309
+   ],
+   [
+    "Veterans Offgrid Inc",
+    3206
+   ],
+   [
+    "Valerio, Antonio Delfino",
+    3022
+   ],
+   [
+    "Montoya, Phillip Ty",
+    2889
+   ],
+   [
+    "Ladinsky, Daniel",
+    2868
+   ],
+   [
+    "Sisneros, F. N., Sisneros, Antonia B. And Leyba, Maria M",
+    2749
+   ],
+   [
+    "Taos Municipal Airport | Town Of Taos                     %",
+    2431
+   ],
+   [
+    "Sangre De Cristo Girl Scout Council",
+    2409
+   ]
+  ],
+  "skipped_big": [
+   [
+    "Taos Pueblo",
+    36199,
+    1147
+   ],
+   [
+    "Nuestra Senora Del Rosario San Fernando Y Santiago Land Grant",
+    4502,
+    121
+   ],
+   [
+    "Taos Pueblo (The)",
+    639,
+    34
+   ]
+  ],
+  "rule": "private = parcel with an owner name not matching federal agencies; blank owners not masked; cells already non-USFS per USFS Basic Ownership/BLM SMA are masked anyway; parcels >1 sq mi touching land those layers call USFS are skipped (likely assessor geometry errors/allotments), smaller ones are masked as inholdings"
  }
 }
